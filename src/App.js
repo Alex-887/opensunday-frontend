@@ -45,6 +45,9 @@ function App() {
     return <Loading />;
   }
 
+  /*
+Test comment for first commit
+*/
   return (
     <div className="App">
       <header className="App-header">
