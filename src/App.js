@@ -7,6 +7,8 @@ import Loading from "./components/Loading";
 import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
 import LocationDetails from "./pages/LocationDetails";
 
+//hi
+
 function App() {
   let [locations, setLocations] = useState([]);
 
