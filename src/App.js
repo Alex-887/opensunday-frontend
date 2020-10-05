@@ -7,6 +7,8 @@ import Loading from "./components/Loading";
 import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
 import LocationDetails from "./pages/LocationDetails";
 
+//hi
+
 function App() {
   let [locations, setLocations] = useState([]);
 
@@ -45,6 +47,9 @@ function App() {
     return <Loading />;
   }
 
+  /*
+Test comment for first commit
+*/
   return (
     <div className="App">
       <header className="App-header">
