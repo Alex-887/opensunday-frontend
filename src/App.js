@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import "./App.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import request from "./utils/request";
 import endpoints from "./endpoints";
-import Loading from "./components/Loading";
+import Loading from "./components/location/Loading";
 import { BrowserRouter, Link, Switch, Route } from "react-router-dom";
 import LocationDetails from "./pages/LocationDetails";
+import "./App.css";
+import MapView from './components/leaflet/MapView';
 
-//hi
 
 function App() {
   let [locations, setLocations] = useState([]);
@@ -62,7 +62,10 @@ Test comment for first commit
             Logout
           </a>
         )}
-        <h1>OpenSunday</h1>
+        <h1>OpenSunday!</h1>
+        <div className="App">
+          <MapView/>
+        </div>
         <br />
         <BrowserRouter>
           <Switch>
