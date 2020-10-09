@@ -1,63 +1,72 @@
+@import '~mapbox-gl/dist/mapbox-gl.css';
+@import '~leaflet/dist/leaflet.css';
+
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 .Logout-link {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1em;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
-.Location-List{
-  list-style-type: none;
-  padding: 0;
+.Location-List {
+    list-style-type: none;
+    padding: 0;
 }
 
 .spinner {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: white;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
-hr{
-  background: white;
-  height: 1px;
-  border: 0;
+hr {
+    background: white;
+    height: 1px;
+    border: 0;
+}
+
+/*sets the width and height of the leaflet container*/
+.leaflet-container {
+    width: 80vw;
+    height: 70vh;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./LocationDetails.css";
-import Location from "../components/Location";
+import Location from "../components/location/Location";
 import request from "../utils/request";
 import { useAuth0 } from "@auth0/auth0-react";
 import endpoints from "../endpoints";
