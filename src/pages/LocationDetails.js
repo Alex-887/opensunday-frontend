@@ -17,9 +17,9 @@ export default function LocationDetails({ match }) {
   useEffect(() => {
     async function getLocation() {
       let location = await request(
-        `${process.env.REACT_APP_SERVER_URL}${endpoints.locations}/${locationID}`,
-        getAccessTokenSilently,
-        loginWithRedirect
+          `${process.env.REACT_APP_SERVER_URL}${endpoints.locations}/${locationID}`,
+          getAccessTokenSilently,
+          loginWithRedirect
       );
 
       setLocation(location);
@@ -29,11 +29,11 @@ export default function LocationDetails({ match }) {
   }, [locationID, getAccessTokenSilently, loginWithRedirect]);
 
   return (
-    <div>
-      {location ? <Location {...location} /> : <p>Loading details...</p>}
-      <Link className="App-link" to="/">
-        Back
-      </Link>
-    </div>
+      <div>
+        {location ? <Location {...location} /> : <p>Loading details...</p>}
+        <Link className="App-link" to="/">
+          Back
+        </Link>
+      </div>
   );
 }
