@@ -50,36 +50,6 @@ function App() {
         return <Loading/>;
     }
 
-    /*
-  Test comment for first commit
-  */
-    const friendOptions = [
-        {
-            key: 'Jenny Hess',
-        },
-        {
-            key: 'Elliot Fu',
-        },
-        {
-            key: 'Stevie Feliciano',
-        },
-        {
-            key: 'Christian',
-        },
-        {
-            key: 'Matt',
-            text: 'Matt',
-            value: 'Matt',
-            image: {avatar: true, src: 'https://react.semantic-ui.com/images/avatar/small/matt.jpg'},
-        },
-        {
-            text: 'Justen Kitne',
-            //key: 'Matt',
-            value: '2'
-
-        },
-    ]
-
     return (
         <div className="App">
             <header className="App-header">
@@ -93,13 +63,47 @@ function App() {
                     </a>
                 )}
                 <h1>OpenSunday!</h1>
-                <Grid container spacing={3}>
+                <BrowserRouter>
+                    <Switch>
+                        <Route
+                            path="/"
+                            exact
+                            render={() => (
+                                <>
+                                    <a
+                                        className="App-link"
+                                        href="#"
+                                        onClick={handleLocationsClick}
+                                    >
+                                        Get Locations
+                                    </a>
+                                    {locations && locations.length > 0 && (
+                                        <ul className="Locations-List">
+                                            {locations.map((location) => (
+                                                <li key={location.id}>
+                                                    <Link
+                                                        className="App-link"
+                                                        to={`/location/${location.id}`}
+                                                    >
+                                                        {location.name}
+                                                    </Link>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </>
+                            )}
+                        />
+                        <Route path="/location/:id" component={LocationDetails}/>
+                    </Switch>
+                </BrowserRouter>
+                <Grid container spacing={1}>
                     <Grid item xs={2}>
                         <div className="infos">
-                            <div className="categorie">
+                            <div >
                                 Catégorie
                             </div>
-                            <div className="name_restaurant">
+                            <div>
                                 Nom restaurant
                             </div>
                             <button>Like 👍</button>
@@ -114,8 +118,8 @@ function App() {
                             <div>
                                 From 12-10pm
                             </div>
-                            <div>
-                                Telephone :  +41 799249044
+                            <div >
+                                Telephone : +41 799249044
                             </div>
                         </div>
                     </Grid>
@@ -126,42 +130,9 @@ function App() {
                     </Grid>
                     <br/>
                     <Grid container spacing={3}>
-                        <BrowserRouter>
-                            <Switch>
-                                <Route
-                                    path="/"
-                                    exact
-                                    render={() => (
-                                        <>
-                                            <a
-                                                className="App-link"
-                                                href="#"
-                                                onClick={handleLocationsClick}
-                                            >
-                                                Get Locations
-                                            </a>
-                                            {locations && locations.length > 0 && (
-                                                <ul className="Locations-List">
-                                                    {locations.map((location) => (
-                                                        <li key={location.id}>
-                                                            <Link
-                                                                className="App-link"
-                                                                to={`/location/${location.id}`}
-                                                            >
-                                                                {location.name}
-                                                            </Link>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                            )}
-                                        </>
-                                    )}
-                                />
-                                <Route path="/location/:id" component={LocationDetails}/>
-                            </Switch>
-                        </BrowserRouter>
                     </Grid>
                 </Grid>
+
             </header>
         </div>
     );
