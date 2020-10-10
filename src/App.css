@@ -70,3 +70,11 @@ hr {
     width: 80vw;
     height: 70vh;
 }
+
+.button_open {
+    color: darkseagreen;
+}
+
+.infos {
+    background-color: white;
+}
