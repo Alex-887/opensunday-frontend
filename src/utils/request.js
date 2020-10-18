@@ -1,11 +1,9 @@
 export default async function (url, getAccessTokenSilently, loginWithRedirect) {
   try {
+
+
     let token = await getAccessTokenSilently();
 
-
-
-    //no post request, we can extend here, data or method,
-    //create a Post API here
 
 
     let response = await fetch(url, {
@@ -22,3 +20,5 @@ export default async function (url, getAccessTokenSilently, loginWithRedirect) {
     await loginWithRedirect();
   }
 }
+
+
