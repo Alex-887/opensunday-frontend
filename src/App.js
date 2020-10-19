@@ -8,10 +8,6 @@ import LocationDetails from "./pages/LocationDetails";
 import "./App.css";
 import MapView from './components/leaflet/MapView';
 import Grid from '@material-ui/core/Grid';
-import {green} from "@material-ui/core/colors";
-import {get} from "leaflet/src/dom/DomUtil";
-
-
 
 
 
@@ -25,24 +21,14 @@ class LocationForm extends React.Component {
        /*Alex*/
      /*Getaccesstokensilently = generate the token from the user   */
 
-        let {
-            loading,
-            loginWithRedirect,
-            logout,
-            getAccessTokenSilently,
-            isAuthenticated,
-        } = useAuth0();
-
-
         /* Alex */
         /* token : je l'ai mis dans les states mais comme c'est un hook il faut faire différement ?? */
 
         super();
 
-
         this.state = {
+
             newLocation: this.emptyLocation,
-            token: getAccessTokenSilently()
 
         };
 
@@ -87,12 +73,11 @@ class LocationForm extends React.Component {
         }));
     };
 
+
     /* Form submission handler */
     handleFormSubmit = async (event) => {
         /* Prevent the form submission from reloading the page */
         event.preventDefault();
-
-
 
 
         /*  Alex  */
@@ -104,12 +89,11 @@ class LocationForm extends React.Component {
 
                 /*Alex*/
                 /* La méthode post est bonne, il faut juste gérer l''Authorization', si tu hard codes le token dedans, la méthode passe, il s'agit juste de mettre le token dedans*/
-                'Authorization': `Bearer ${this.token}`
 
                 /* Alex */
-                /* le hardcode de mon token pour tester
+
                 'Authorization': `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFlekliQXpkUlhKbDFFMFBpNjF2NCJ9.eyJpc3MiOiJodHRwczovL29wZW5zdW5kYXkuZXUuYXV0aDAuY29tLyIsInN1YiI6ImdpdGh1Ynw0ODM0OTAwMSIsImF1ZCI6Imh0dHBzOi8vb3BlbnN1bmRheS5laGVhbHRoLmhldnMuY2giLCJpYXQiOjE2MDEyODM1MTYsImV4cCI6MTYwMzcwMjcxNiwiYXpwIjoiNWYwSFkyYm1ZaVdwZTlFQWVXWDdtV1lHS2NqUXZ5NWwifQ.hqif1Az2t6_CLN18if6qHSi8AxrPvUYEBxy1WGgYyGt3M8nGmn96fSFSPlhNP6HOpx4jtovrICesTIhGoYsAsNXix5TKzwghlznyU5uBjMV5w5HvZb3hcpgN_oJOw1efdsFINHAjQjYzP_8cFJ23tru49vBhxfJ-pAl5v_TpFzAYozT8u6W5R0tuQHKCFDsnf-Lt9OQBV4h9Qi6WfgJpObGlwUh0ygbG2PfmsLFmDrecm1TuoQuGazOamEq3tH4YfTgDDwcsGrGBc8N9MKS0afl7mNsubPGvwWjSktkXVjXL0bAAdN5ZbiH2Zrita4iOCk-sUXCkWZPjXthgFWJdSA`
-                */
+
 
             },
             body: JSON.stringify({
