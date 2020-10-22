@@ -1,25 +1,46 @@
-import React, { Component } from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import { Map, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import data from '../../assets/data';
 import Markers from './VenueMarkers';
+import UserMarker from "./UserMarker";
+
+
+
+
 
 //class that renders the Map component, later used in App.js
-class MapView extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      //intial location (written in latitude and longitude)
-      currentLocation: { lat: 52.52437, lng: 13.41053 },
-      zoom: 12,
-    }
-  }
+function MapView()  {
 
-  render() {
-    const { currentLocation, zoom } = this.state;
+  //default coordinates on Zürich if the user doesn't give his geolocalisation info
+  const [UserLatitude, setUserLatitude] = useState(47.36667);
+  const [UserLongitude, setUserLongitude] = useState( 8.55);
+
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(function(position) {
+        console.log("User latitude is :", position.coords.latitude);
+        console.log("User longitude is :", position.coords.longitude);
+
+        //set the user coordinates into the hook
+        setUserLatitude(position.coords.latitude)
+        setUserLongitude(position.coords.longitude)
+
+        localStorage.setItem('UserLatitude', position.coords.latitude);
+        localStorage.setItem('UserLongitude', position.coords.longitude);
+
+      });
+
+    }
+  })
+
+
 
     return (
-      <Map center={currentLocation} zoom={zoom}>
+
+        //the map will be on the user, if the user doesn't give his location, the map is by default on zurich
+      <Map center={[UserLatitude, UserLongitude]} zoom={13}>
         {/* this component adds the titles of the map */}
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -27,9 +48,12 @@ class MapView extends Component {
         />
         {/* pass the data to the markers */}
         <Markers venues={data.venues}/>
+        <UserMarker venues={[UserLatitude, UserLongitude, "Me"]}/>
+
+
+
       </Map>
     );
-  }
 }
 
 export default MapView;

@@ -1,4 +1,4 @@
-export default async function (url, getAccessTokenSilently, loginWithRedirect) {
+export default async function (url, method = 'GET', body, getAccessTokenSilently, loginWithRedirect) {
   try {
 
 
@@ -7,10 +7,12 @@ export default async function (url, getAccessTokenSilently, loginWithRedirect) {
 
 
     let response = await fetch(url, {
+      method: method,
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body
     });
 
     let data = await response.json();

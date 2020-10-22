@@ -2,12 +2,12 @@ import React from "react";
 import "./Location.css";
 
 export default function Location(props) {
-    const { name, address } = props;
+    const { ...locationsData } = props;
 
     return (
         <div className="location">
-            <h2>{name}</h2>
-            <div>{address}</div>
+            <h2>{locationsData.name}</h2>
+            <div>{locationsData.address}</div>
         </div>
     );
 }

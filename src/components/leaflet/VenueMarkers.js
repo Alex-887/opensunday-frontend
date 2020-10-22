@@ -21,4 +21,6 @@ const VenueMarkers = (props) => {
   return <Fragment>{markers}</Fragment>
 };
 
+
+
 export default VenueMarkers;

@@ -11,27 +11,20 @@ import Grid from '@material-ui/core/Grid';
 
 
 
+
+
+
 /* Location Form component - the UI & logic to add a new location */
 class LocationForm extends React.Component {
-
-
-
     constructor() {
-
-       /*Alex*/
-     /*Getaccesstokensilently = generate the token from the user   */
-
-        /* Alex */
-        /* token : je l'ai mis dans les states mais comme c'est un hook il faut faire différement ?? */
-
         super();
 
+
+
+
         this.state = {
-
             newLocation: this.emptyLocation,
-
         };
-
 
 
 
@@ -55,8 +48,6 @@ class LocationForm extends React.Component {
         */
 
 
-
-
         const target = event.target;
         const value = target.value;
         const name = target.name;
@@ -74,30 +65,31 @@ class LocationForm extends React.Component {
     };
 
 
+
+
+
+
     /* Form submission handler */
     handleFormSubmit = async (event) => {
         /* Prevent the form submission from reloading the page */
         event.preventDefault();
 
+        let {
+            loading,
+            loginWithRedirect,
+            logout,
+            getAccessTokenSilently,
+            isAuthenticated,
+        } = useAuth0();
+
+
+
 
         /*  Alex  */
         /* POST method : authorization is the bearer token, we want to generate it with the getAccessTokenSilently */
-        let newLocationResponse = await fetch(process.env.REACT_APP_SERVER_URL +  endpoints.postLocations, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-
-                /*Alex*/
-                /* La méthode post est bonne, il faut juste gérer l''Authorization', si tu hard codes le token dedans, la méthode passe, il s'agit juste de mettre le token dedans*/
-
-                /* Alex */
-
-                'Authorization': `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFlekliQXpkUlhKbDFFMFBpNjF2NCJ9.eyJpc3MiOiJodHRwczovL29wZW5zdW5kYXkuZXUuYXV0aDAuY29tLyIsInN1YiI6ImdpdGh1Ynw0ODM0OTAwMSIsImF1ZCI6Imh0dHBzOi8vb3BlbnN1bmRheS5laGVhbHRoLmhldnMuY2giLCJpYXQiOjE2MDEyODM1MTYsImV4cCI6MTYwMzcwMjcxNiwiYXpwIjoiNWYwSFkyYm1ZaVdwZTlFQWVXWDdtV1lHS2NqUXZ5NWwifQ.hqif1Az2t6_CLN18if6qHSi8AxrPvUYEBxy1WGgYyGt3M8nGmn96fSFSPlhNP6HOpx4jtovrICesTIhGoYsAsNXix5TKzwghlznyU5uBjMV5w5HvZb3hcpgN_oJOw1efdsFINHAjQjYzP_8cFJ23tru49vBhxfJ-pAl5v_TpFzAYozT8u6W5R0tuQHKCFDsnf-Lt9OQBV4h9Qi6WfgJpObGlwUh0ygbG2PfmsLFmDrecm1TuoQuGazOamEq3tH4YfTgDDwcsGrGBc8N9MKS0afl7mNsubPGvwWjSktkXVjXL0bAAdN5ZbiH2Zrita4iOCk-sUXCkWZPjXthgFWJdSA`
-
-
-            },
-            body: JSON.stringify({
-
+        let newLocationResponse = await request(`${process.env.REACT_APP_SERVER_URL}${endpoints.postLocations}`,
+            'POST',
+            JSON.stringify({
                 "Name": this.state.newLocation.Name,
                 "Latitude": parseFloat(this.state.newLocation.Latitude),
                 "Longitude": parseFloat(this.state.newLocation.Longitude),
@@ -109,21 +101,20 @@ class LocationForm extends React.Component {
                 "FK_City": Number(this.state.newLocation.FK_City)
 
             }),
+            getAccessTokenSilently,
+            loginWithRedirect
+        )
 
-        });
 
-        // /* Get the response body, parsed from JSON */
         let newLocation = await newLocationResponse.json();
-        //
-        // /* Call the "add location" function that is passed as a prop */
-         this.props.addLocation(newLocation);
+        this.props.addLocation(newLocation);
+        this.resetNewLocation();
+        this.focusLocationTitle();
 
-        /* Reset the new location state */
-         this.resetNewLocation();
 
-        // /* Focus on the location title after adding a new location */
-         this.focusLocationTitle();
-    };
+
+        };
+
 
     /* Method for focusing on the location title, using the created ref */
     focusLocationTitle = (event) => {
@@ -158,7 +149,7 @@ class LocationForm extends React.Component {
                     <FormInput
                         type="decimal"
                         name="Latitude"
-                        value={this.state.newLocation.latitude}
+                        value={this.state.newLocation.Latitude}
                         onChange={this.handleFormInputChange}
                         placeholder="Latitude"
                     />
@@ -289,6 +280,11 @@ function App() {
     } = useAuth0();
 
 
+    localStorage.setItem('token', getAccessTokenSilently());
+
+
+
+
     let addLocation = (location) => {
         setLocations((prevLocations) => [location, ...prevLocations]);
     };
@@ -296,11 +292,14 @@ function App() {
 
     let handleLocationsClick = async (e) => {
         e.preventDefault();
+
+
         let locations = await request(
             `${process.env.REACT_APP_SERVER_URL}${endpoints.locations}`,
             getAccessTokenSilently,
             loginWithRedirect
         );
+
 
         if (locations && locations.length > 0) {
             console.log(locations);
