@@ -75,11 +75,10 @@ class LocationForm extends React.Component {
         /* Prevent the form submission from reloading the page */
         event.preventDefault();
 
-
+        let locationsURL = process.env.REACT_APP_SERVER_URL;
         /*  Alex  */
         /* POST method : authorization is the bearer token, we want to generate it with the getAccessTokenSilently */
-        let newLocationResponse = await request(`${process.env.REACT_APP_SERVER_URL}${endpoints.postLocations}`,
-            'POST',
+        let newLocationResponse = await request(`${locationsURL}${endpoints.postLocations}`, localStorage.getItem('token'),localStorage.getItem('redirect'),"POST",
             JSON.stringify({
                 "Name": this.state.newLocation.Name,
                 "Latitude": parseFloat(this.state.newLocation.Latitude),
@@ -90,10 +89,7 @@ class LocationForm extends React.Component {
                 "ClosingTime": this.state.newLocation.ClosingTime,
                 "FK_Category": Number(this.state.newLocation.FK_Category),
                 "FK_City": Number(this.state.newLocation.FK_City)
-
-            }),
-            localStorage.getItem('token'),
-            localStorage.getItem('redirect')
+            })
         )
 
         this.props.addLocation(newLocationResponse);
