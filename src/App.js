@@ -242,7 +242,7 @@ function App() {
 
             /* Set the books to the JSON body of the response */
             /* using the ".json()" method (async)             */
-            setLocations(await locationsReponse.json());
+            setLocations(locationsReponse);
         }
 
         getLocations();
