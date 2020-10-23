@@ -2,7 +2,7 @@ export default async function (url, method = 'GET', body, getAccessTokenSilently
   try {
 
 
-    let token = await getAccessTokenSilently();
+    let token = getAccessTokenSilently;
 
 
 
@@ -19,7 +19,7 @@ export default async function (url, method = 'GET', body, getAccessTokenSilently
     return data;
   } catch (e) {
     console.error(e);
-    await loginWithRedirect();
+    await loginWithRedirect;
   }
 }
 
