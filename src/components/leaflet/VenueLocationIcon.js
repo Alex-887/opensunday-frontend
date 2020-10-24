@@ -14,8 +14,8 @@ export const VenueLocationIcon = L.icon({
 
 
 export const VenueUserIcon = L.icon({
-  iconUrl: require('../../assets/venue_location_icon.svg'),
-  iconRetinaUrl: require('../../assets/venue_location_icon.svg'),
+  iconUrl: require('../../assets/venue_user_icon.svg'),
+  iconRetinaUrl: require('../../assets/venue_user_icon.svg'),
   iconAnchor: null,
   shadowUrl: null,
   shadowSize: null,

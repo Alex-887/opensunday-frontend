@@ -2,12 +2,11 @@ import React from 'react';
 import {Popup} from 'react-leaflet';
 
 //this componentn open the popup whenver we click on a marker on the map.
-const MarkerPopup = (props) => {
-  const { name } = props.data;
+const UserMarkerPopup = () => {
 
   return  (<Popup>
-    <div className='popup-text'>{name}</div>
+    <div className='popup-text'>{"Hey it's me!"}</div>
   </Popup>);
 };
 
-export default MarkerPopup;
+export default UserMarkerPopup;
