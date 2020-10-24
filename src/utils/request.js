@@ -19,7 +19,7 @@ export default async function (url, getAccessTokenSilently, loginWithRedirect, m
       response = await fetch(url, {
         method: method,
         headers: {
-          Accept: "application/json",
+          'Content-Type': "application/json",
           Authorization: `Bearer ${token}`,
         },
         body
