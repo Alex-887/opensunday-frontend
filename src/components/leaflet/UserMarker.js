@@ -7,18 +7,12 @@ import MarkerPopup from './MarkerPopup';
 
 
 const VenueUserMarker = (props) => {
-
-
     const { venues } = props;
 
     const UserMarker = venues.map(() => (
-
-
-        //giving the localstorage user coordinates to the user marker
-        <Marker position={[localStorage.getItem('UserLatitude'),
-                localStorage.getItem('UserLongitude')]}
+                //giving the localstorage user coordinates to the user marker
+        <Marker position={[venues[0], venues[1]]}
                 icon={VenueUserIcon} >
-
             <MarkerPopup data={"Hey"}/>
         </Marker>
     ));

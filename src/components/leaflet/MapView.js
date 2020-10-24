@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import data from '../../assets/data';
 import Markers from './VenueMarkers';
 import UserMarker from "./UserMarker";
+import VenueMarkers from "./VenueMarkers";
 
 
 
@@ -19,23 +20,20 @@ function MapView()  {
 
   useEffect(() => {
     if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(function(position) {
-        console.log("User latitude is :", position.coords.latitude);
-        console.log("User longitude is :", position.coords.longitude);
+        navigator.geolocation.watchPosition(function(position) {
+          console.log("User latitude is :", position.coords.latitude);
+          console.log("User longitude is :", position.coords.longitude);
 
-        //set the user coordinates into the hook
-        setUserLatitude(position.coords.latitude)
-        setUserLongitude(position.coords.longitude)
+          //set the user coordinates into the hook
+          setUserLatitude(position.coords.latitude)
+          setUserLongitude(position.coords.longitude)
 
-        localStorage.setItem('UserLatitude', position.coords.latitude);
-        localStorage.setItem('UserLongitude', position.coords.longitude);
+          //localStorage.setItem('UserLatitude', position.coords.latitude);
+         // localStorage.setItem('UserLongitude', position.coords.longitude);
 
-      });
-
-    }
-  })
-
-
+        });
+      }
+  },[])
 
     return (
 
@@ -47,11 +45,8 @@ function MapView()  {
           attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
         />
         {/* pass the data to the markers */}
-        <Markers venues={data.venues}/>
+        {<Markers venues={data.venues}/>}
         <UserMarker venues={[UserLatitude, UserLongitude, "Me"]}/>
-
-
-
       </Map>
     );
 }

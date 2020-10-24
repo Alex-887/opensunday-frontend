@@ -5,20 +5,21 @@ import {Marker} from 'react-leaflet';
 import {VenueLocationIcon} from './VenueLocationIcon';
 import MarkerPopup from './MarkerPopup';
 
-const VenueMarkers = (props) => {
+function VenueMarkers (props) {
   //we get the props from the Mapview.js
   const { venues } = props;
 
   const markers = venues.map((venue, index) => (
       //we pass the location + position
-    <Marker key={index} position={venue.geometry} icon={VenueLocationIcon} >
-      //pass the venue pro
-      <MarkerPopup data={venue}/>
+   <Marker key={index} position={venue.geometry} icon={VenueLocationIcon} >
+
+    <MarkerPopup data={venue}/>
     </Marker>
   ));
 
   //return all makers
   return <Fragment>{markers}</Fragment>
+
 };
 
 

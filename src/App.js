@@ -86,7 +86,6 @@ function LocationForm() {
     };
 
 
-
     return (
         <>
             {/* Render a form allowing to add a new location to the list */}
