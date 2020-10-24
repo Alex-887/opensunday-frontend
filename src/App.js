@@ -51,17 +51,18 @@ function LocationForm() {
 
 
     const body = JSON.stringify({
-        "Name": "Front-End",
-        "Creator": "Laurin",
-        "Latitude": 47,
-        "Longitude": 8,
-        "Address": "Boss Gharbi",
-        "Telephone": "+41 44 310 20 80",
-        "OpeningTime": "10 am",
-        "ClosingTime": "16 pm",
+
+        "Name": newLocation.Name,
+        "Creator": "Front-End",
+        "Latitude": parseFloat(newLocation.Latitude),
+        "Longitude": parseFloat(newLocation.Longitude),
+        "Address": newLocation.Address,
+        "Telephone": newLocation.Telephone,
+        "OpeningTime": newLocation.OpeningTime,
+        "ClosingTime": newLocation.ClosingTime,
         "IsVerified": false,
-        "FK_Category": 1,
-        "FK_City": 1
+        "FK_Category": Number(newLocation.FK_Category),
+        "FK_City": Number(newLocation.FK_City)
         }
     )
 
