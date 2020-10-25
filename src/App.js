@@ -9,6 +9,7 @@ import "./App.css";
 import MapView from './components/leaflet/MapView';
 import Grid from '@material-ui/core/Grid';
 import LoginButton from "./components/Login/LoginButton";
+import LeafletMap from "./components/leaflet/LeafletMap";
 
 
 /* Location Form component - the UI & logic to add a new location */
@@ -353,7 +354,8 @@ function App() {
                         </Grid>
                         <Grid item xs={10}>
                             <div className="App">
-                                <MapView locations={locations}/>
+                                {/*<MapView locations={locations}/>*/}
+                                <LeafletMap/>
                             </div>
                         </Grid>
                         <br/>
