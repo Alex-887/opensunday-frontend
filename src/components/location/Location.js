@@ -6,8 +6,8 @@ export default function Location(props) {
 
     return (
         <div className="location">
-            <h2>{locationsData.name}</h2>
-            <div>{locationsData.address}</div>
+            <h1>{locationsData.name}</h1>
+            <h2>{locationsData.address}</h2>
         </div>
     );
 }

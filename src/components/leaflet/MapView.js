@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState} from 'react';
 import {Map, Marker, TileLayer} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import data from '../../assets/data';
 import Markers from './VenueMarkers';
 import {VenueUserIcon} from "./VenueLocationIcon";
 import UserMarkerPopup from "./UserMarkerPopup";
@@ -11,9 +10,9 @@ import UserMarkerPopup from "./UserMarkerPopup";
 function MapView(props) {
 
     const locations = props.locations;
-    //default coordinates on Zürich if the user doesn't give his geolocalisation info
-    const defaultUserLatitude = 47.36667;
-    const defaultUserLongitude = 8.55;
+    //default coordinates on the middle of Switzerland (Niedwald) if the user doesn't give his geolocalisation info
+    const defaultUserLatitude = 46.92739 ;
+    const defaultUserLongitude = 8.4102;
 
     const [UserLatitude, setUserLatitude] = useState(defaultUserLatitude);
     const [UserLongitude, setUserLongitude] = useState(defaultUserLongitude);
@@ -73,7 +72,7 @@ function MapView(props) {
 
         return (
 
-            //the map will be on the user, if the user doesn't give his location, the map is by default on zurich
+            //the map will be on the user, if the user doesn't give his location, the map is by default on the middle of Switzerland
             <Map center={[UserLatitude, UserLongitude]} zoom={13}>
 
 
@@ -98,7 +97,7 @@ function MapView(props) {
 
     else {
         return (
-            <Map center={[UserLatitude, UserLongitude]} zoom={13}>
+            <Map center={[UserLatitude, UserLongitude]} zoom={8}>
                 {/* this component adds the titles of the map */}
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
