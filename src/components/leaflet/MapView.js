@@ -10,7 +10,7 @@ import UserMarkerPopup from "./UserMarkerPopup";
 //class that renders the Map component, later used in App.js
 function MapView(props) {
 
-    const {locations} = props.locations;
+    const locations = props.locations;
     //default coordinates on Zürich if the user doesn't give his geolocalisation info
     const defaultUserLatitude = 47.36667;
     const defaultUserLongitude = 8.55;
@@ -84,7 +84,7 @@ function MapView(props) {
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 />
                 {/* pass the data to the markers */}
-                <Markers venues={data.venues}/>
+                <Markers locations={locations}/>
                 <VenueUserMarker venues={[UserLatitude, UserLongitude]}/>
 
             </Map>
@@ -105,7 +105,7 @@ function MapView(props) {
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 />
                 {/* pass the data to the markers */}
-                <Markers venues={data.venues}/>
+                <Markers locations={locations}/>
             </Map>
         );
 
