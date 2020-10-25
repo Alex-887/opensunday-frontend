@@ -51,18 +51,17 @@ function LocationForm() {
 
 
     const body = JSON.stringify({
-
-        "Name": newLocation.Name,
-        "Creator": "Front-End",
-        "Latitude": parseFloat(newLocation.Latitude),
-        "Longitude": parseFloat(newLocation.Longitude),
-        "Address": newLocation.Address,
-        "Telephone": newLocation.Telephone,
-        "OpeningTime": newLocation.OpeningTime,
-        "ClosingTime": newLocation.ClosingTime,
-        "IsVerified": false,
-        "FK_Category": Number(newLocation.FK_Category),
-        "FK_City": Number(newLocation.FK_City)
+            "Name": newLocation.Name,
+            "Creator": "Front-End",
+            "Latitude": parseFloat(newLocation.Latitude),
+            "Longitude": parseFloat(newLocation.Longitude),
+            "Address": newLocation.Address,
+            "Telephone": newLocation.Telephone,
+            "OpeningTime": newLocation.OpeningTime,
+            "ClosingTime": newLocation.ClosingTime,
+            "IsVerified": false,
+            "FK_Category": Number(newLocation.FK_Category),
+            "FK_City": Number(newLocation.FK_City)
         }
     )
 
@@ -198,19 +197,23 @@ function FormInput({type, name, value, onChange, placeholder, fieldRef}) {
 
 
 function App() {
-    let [locations, setLocations] = useState([]);
+    const [locations, setLocations] = useState([]);
+    let isActive = false;
 
     useEffect(() => {
 
-        let locationsURL = process.env.REACT_APP_SERVER_URL;
-
         async function getLocations() {
-            /* Call the books URL using the fetch API (async) */
-            let locationsReponse = await fetch(locationsURL);
+            let locations = await request(
+                `${process.env.REACT_APP_SERVER_URL}${endpoints.locations}`,
+                getAccessTokenSilently,
+                loginWithRedirect
+            );
 
-            /* Set the books to the JSON body of the response */
-            /* using the ".json()" method (async)             */
-            setLocations(locationsReponse);
+
+            if (locations && locations.length > 0) {
+                console.log(locations);
+                setLocations(locations);
+            }
         }
 
         getLocations();
@@ -225,27 +228,24 @@ function App() {
     } = useAuth0();
 
 
-    function addLocation (location) {
+    function addLocation(location) {
         setLocations((prevLocations) => [location, ...prevLocations]);
     };
 
+/*
+    async function showLocations() {
+        if (isActive) {
+            let locations = await request(
+                `${process.env.REACT_APP_SERVER_URL}${endpoints.locations}`,
+                getAccessTokenSilently,
+                loginWithRedirect
+            );
 
-    let handleLocationsClick = async (e) => {
-        e.preventDefault();
-
-
-        let locations = await request(
-            `${process.env.REACT_APP_SERVER_URL}${endpoints.locations}`,
-            getAccessTokenSilently,
-            loginWithRedirect
-        );
-
-
-        if (locations && locations.length > 0) {
-            console.log(locations);
-            setLocations(locations);
-        }
-    };
+            if (locations && locations.length > 0) {
+                console.log(locations);
+                setLocations(locations);
+            }
+    };*/
 
     function handleLogout() {
         return (
@@ -282,11 +282,12 @@ function App() {
                                     <a
                                         className="App-link"
                                         href="#"
-                                        onClick={handleLocationsClick}
+                                        onClick={isActive ? isActive = false : isActive = true}
                                     >
                                         Get Locations
                                     </a>
-                                    {locations && locations.length > 0 && (
+                                    {isActive ? (
+                                        <>
                                         <ul className="Locations-List">
                                             {locations.map((location) => (
                                                 <li key={location.id}>
@@ -299,7 +300,8 @@ function App() {
                                                 </li>
                                             ))}
                                         </ul>
-                                    )}
+                                            </>
+                                    ) : <></>}
                                 </>
                             )}
                         />
@@ -351,7 +353,7 @@ function App() {
                         </Grid>
                         <Grid item xs={10}>
                             <div className="App">
-                                <MapView/>
+                                <MapView locations={locations}/>
                             </div>
                         </Grid>
                         <br/>

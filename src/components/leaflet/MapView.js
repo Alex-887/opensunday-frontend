@@ -8,10 +8,10 @@ import UserMarkerPopup from "./UserMarkerPopup";
 
 
 //class that renders the Map component, later used in App.js
-function MapView() {
+function MapView(props) {
 
+    const {locations} = props.locations;
     //default coordinates on Zürich if the user doesn't give his geolocalisation info
-
     const defaultUserLatitude = 47.36667;
     const defaultUserLongitude = 8.55;
 
@@ -47,9 +47,6 @@ function MapView() {
         }
     })
 
-
-
-
     const VenueUserMarker = (props) => {
         const {venues} = props;
         const UserMarker = venues.map(() => (
@@ -68,12 +65,6 @@ function MapView() {
         //return all makers
         return <Fragment>{UserMarker}</Fragment>
     };
-
-
-
-
-
-
 
 
     //if the coordinates are not default one, we can display the user marker
