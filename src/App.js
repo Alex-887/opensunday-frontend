@@ -354,8 +354,7 @@ function App() {
                         </Grid>
                         <Grid item xs={10}>
                             <div className="App">
-                                {/*<MapView locations={locations}/>*/}
-                                <LeafletMap/>
+                                <MapView locations={locations}/>
                             </div>
                         </Grid>
                         <br/>

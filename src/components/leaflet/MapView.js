@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import Markers from './VenueMarkers';
 import {VenueUserIcon} from "./VenueLocationIcon";
 import UserMarkerPopup from "./UserMarkerPopup";
+// import Routing from "./RoutingMachine";
 
 
 //class that renders the Map component, later used in App.js
@@ -17,17 +18,15 @@ function MapView(props) {
     const [UserLatitude, setUserLatitude] = useState(defaultUserLatitude);
     const [UserLongitude, setUserLongitude] = useState(defaultUserLongitude);
     const [isLocated, setIsLocated] = useState(false);
-    const [hasAskedLocation, setHasAskedLocation] = useState(false);
+
 
 
     useEffect(() => {
-        if ("geolocation" in navigator && hasAskedLocation === false) {
+        if ("geolocation" in navigator) {
 
             //Otherwise the browser keeps asking the user to give his location
-            setHasAskedLocation(true);
 
-
-            navigator.geolocation.watchPosition(function (position) {
+            navigator.geolocation.getCurrentPosition(function (position) {
                     setIsLocated(true);
                     console.log("User latitude is :", position.coords.latitude);
                     console.log("User longitude is :", position.coords.longitude);
@@ -44,11 +43,19 @@ function MapView(props) {
 
                 });
         }
-    })
 
-    const VenueUserMarker = (props) => {
-        const {venues} = props;
-        const UserMarker = venues.map(() => (
+        return () => {navigator.geolocation.clearWatch(0)}
+
+    }, [])
+
+
+
+    const userPosition =  [UserLatitude, UserLongitude];
+
+
+    const VenueUserMarker = () => {
+
+        const UserMarker =  (
 
             //giving the localstorage user coordinates to the user marker
             <Marker position={
@@ -57,11 +64,10 @@ function MapView(props) {
                     icon={VenueUserIcon}>
 
                 <UserMarkerPopup/>
-
             </Marker>
 
-        ));
-        //return all makers
+        );
+        //return maker
         return <Fragment>{UserMarker}</Fragment>
     };
 
@@ -72,10 +78,9 @@ function MapView(props) {
 
         return (
 
+
             //the map will be on the user, if the user doesn't give his location, the map is by default on the middle of Switzerland
-            <Map center={[UserLatitude, UserLongitude]} zoom={13}>
-
-
+            <Map center={userPosition} zoom={13}>
 
                 {/* this component adds the titles of the map */}
                 <TileLayer
@@ -84,7 +89,9 @@ function MapView(props) {
                 />
                 {/* pass the data to the markers */}
                 <Markers locations={locations}/>
-                <VenueUserMarker venues={[UserLatitude, UserLongitude]}/>
+                <VenueUserMarker venues={userPosition}/>
+
+                {/*<Routing />*/}
 
             </Map>
         );
@@ -97,7 +104,7 @@ function MapView(props) {
 
     else {
         return (
-            <Map center={[UserLatitude, UserLongitude]} zoom={8}>
+            <Map center={userPosition} zoom={8}>
                 {/* this component adds the titles of the map */}
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -105,13 +112,11 @@ function MapView(props) {
                 />
                 {/* pass the data to the markers */}
                 <Markers locations={locations}/>
+
             </Map>
+
         );
-
-
     }
-
-
 }
 
 export default MapView;
