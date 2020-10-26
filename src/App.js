@@ -233,20 +233,20 @@ function App() {
         setLocations((prevLocations) => [location, ...prevLocations]);
     };
 
-/*
-    async function showLocations() {
-        if (isActive) {
-            let locations = await request(
-                `${process.env.REACT_APP_SERVER_URL}${endpoints.locations}`,
-                getAccessTokenSilently,
-                loginWithRedirect
-            );
+    /*
+        async function showLocations() {
+            if (isActive) {
+                let locations = await request(
+                    `${process.env.REACT_APP_SERVER_URL}${endpoints.locations}`,
+                    getAccessTokenSilently,
+                    loginWithRedirect
+                );
 
-            if (locations && locations.length > 0) {
-                console.log(locations);
-                setLocations(locations);
-            }
-    };*/
+                if (locations && locations.length > 0) {
+                    console.log(locations);
+                    setLocations(locations);
+                }
+        };*/
 
     function handleLogout() {
         return (
@@ -289,29 +289,25 @@ function App() {
                                     </a>
                                     {isActive ? (
                                         <>
-                                        <ul className="Locations-List">
-                                            {locations.map((location) => (
-                                                <li key={location.id}>
-                                                    <Link
-                                                        className="App-link"
-                                                        to={`/location/${location.id}`}
-                                                    >
-                                                        {location.name}
-                                                    </Link>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                            </>
+                                            <ul className="Locations-List">
+                                                {locations.map((location) => (
+                                                    <li key={location.id}>
+                                                        <Link
+                                                            className="App-link"
+                                                            to={`/location/${location.id}`}
+                                                        >
+                                                            {location.name}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </>
                                     ) : <></>}
                                 </>
                             )}
                         />
                         <Route path="/location/:id" component={LocationDetails}/>
-
-
                     </Switch>
-
-
                     <Grid container spacing={1}>
                         <Grid item xs={2}>
                             <div className="infos">
@@ -354,16 +350,16 @@ function App() {
                         </Grid>
                         <Grid item xs={10}>
                             <div className="App">
-                                <MapView locations={locations}/>
+                                {<MapView locations={locations}/>}
+                                {/*<LeafletMap/>*/}
                             </div>
                         </Grid>
                         <br/>
                         <Grid container spacing={3}>
                         </Grid>
                     </Grid>
+
                 </BrowserRouter>
-
-
             </header>
         </div>
     );
