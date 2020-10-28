@@ -1,36 +1,33 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Map, Marker, TileLayer} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import data from '../../assets/data';
 import Markers from './VenueMarkers';
 import {VenueUserIcon} from "./VenueLocationIcon";
 import UserMarkerPopup from "./UserMarkerPopup";
 import RoutingMachine from "./RoutingMachine";
 import Routing from "./Routing";
+import VenueUserMarker from "./VenueUserMarker";
 
 
 //class that renders the Map component, later used in App.js
 function MapView(props) {
 
     const locations = props.locations;
-    //default coordinates on Zürich if the user doesn't give his geolocalisation info
+    //default coordinates on Niedwald if the user doesn't give his geolocalisation info
     const defaultUserLatitude = 47.36667;
     const defaultUserLongitude = 8.55;
 
     const [UserLatitude, setUserLatitude] = useState(defaultUserLatitude);
     const [UserLongitude, setUserLongitude] = useState(defaultUserLongitude);
     const [isLocated, setIsLocated] = useState(false);
-    const [hasAskedLocation, setHasAskedLocation] = useState(false);
 
 
     useEffect(() => {
-        if ("geolocation" in navigator && hasAskedLocation === false) {
+        if ("geolocation" in navigator) {
 
-            //Otherwise the browser keeps asking the user to give his location
-            setHasAskedLocation(true);
-            //getCurrentPosition
+
             //watchPosition() => for a user that moves around to track his position
-            navigator.geolocation.watchPosition(function (position) {
+            navigator.geolocation.getCurrentPosition(function (position) {
                     setIsLocated(true);
                     console.log("User latitude is :", position.coords.latitude);
                     console.log("User longitude is :", position.coords.longitude);
@@ -50,29 +47,33 @@ function MapView(props) {
         };
     }, [])
 
-    const VenueUserMarker = (props) => {
-        const {venues} = props;
-        const UserMarker = (
 
+    const UserCoordinates = [UserLatitude, UserLongitude]
+
+
+    //should be in a class -> VenueUserMarker.js
+    const VenueUserMarker = () => {
+        const UserMarker = (
             //giving the localstorage user coordinates to the user marker
             <Marker position={
-                [UserLatitude,
-                    UserLongitude]}
+                [UserLatitude, UserLongitude]}
                     icon={VenueUserIcon}>
                 <UserMarkerPopup/>
             </Marker>
-
         );
         //return all makers
         return <Fragment>{UserMarker}</Fragment>
     };
 
+
+    //CONDITIONAL RENDERING
     //if the coordinates are not default one, we can display the user marker
     if (isLocated === true && UserLatitude !== defaultUserLatitude && UserLongitude !== defaultUserLongitude) {
+
         return (
 
-            //the map will be on the user, if the user doesn't give his location, the map is by default on zurich
-            <Map center={[UserLatitude, UserLongitude]} zoom={13}>
+            //the map will be on the user, if the user doesn't give his location, the map is by default on Niedwald
+            <Map center={UserCoordinates} zoom={13}>
 
                 {/* this component adds the titles of the map */}
                 <TileLayer
@@ -80,17 +81,24 @@ function MapView(props) {
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 />
                 {/*<Routing start ={[UserLatitude, UserLongitude]} end ={[defaultUserLatitude,defaultUserLongitude]}  map={}/>*/}
+
+
                 {/* pass the data to the markers */}
-                <Markers locations={locations}/>
-                <VenueUserMarker venues={[UserLatitude, UserLongitude]}/>
+                <Markers locations={locations} />
+
+
+                {/*should be cleaner but can't make it work, see Venue UserMarker.js */}
+                {/*<VenueUserMarker props={[UserCoordinates]}/>*/}
+
+                <VenueUserMarker/>
+
             </Map>
         );
     }
-
     //the user didn't want to share his location => no user marker
     else {
         return (
-            <Map center={[UserLatitude, UserLongitude]} zoom={13}>
+            <Map center={UserCoordinates} zoom={13}>
                 {/* this component adds the titles of the map */}
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

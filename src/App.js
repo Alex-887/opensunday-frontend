@@ -273,8 +273,12 @@ function App() {
                     {isAuthenticated ? handleLogout() : handleLogin()}
                 </div>
                 <h1>OpenSunday!</h1>
+
                 <BrowserRouter>
-                    <Switch>
+                    <Grid container spacing={1}>
+                        <Grid item xs={2}>
+
+                        <Switch>
                         <Route
                             path="/"
                             exact
@@ -308,36 +312,8 @@ function App() {
                         />
                         <Route path="/location/:id" component={LocationDetails}/>
                     </Switch>
-                    <Grid container spacing={1}>
-                        <Grid item xs={2}>
-                            <div className="infos">
-                                <div>
-                                    Catégorie
-                                </div>
-                                <div>
-                                    Nom restaurant
-                                </div>
-                                <button>Like 👍</button>
-                                <button>Dislike👎</button>
-                                <div>
-                                    Score :
-                                </div>
-                                <p>
-                                    Horaires:
-                                </p>
-                                <p className="button_open">Open</p>
-                                <div>
-                                    From 12-10pm
-                                </div>
-                                <div>
-                                    Telephone : +41 799249044
-                                </div>
-                            </div>
 
-                            <br/>
-                            <Link
-                                to="/newLocation"
-                            >
+                            <Link to="/newLocation">
                                 Add a location
                             </Link>
 
@@ -351,12 +327,10 @@ function App() {
                         <Grid item xs={10}>
                             <div className="App">
                                 {<MapView locations={locations}/>}
-                                {/*<LeafletMap/>*/}
                             </div>
                         </Grid>
                         <br/>
-                        <Grid container spacing={3}>
-                        </Grid>
+
                     </Grid>
 
                 </BrowserRouter>
