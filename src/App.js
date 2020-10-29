@@ -197,7 +197,7 @@ function FormInput({type, name, value, onChange, placeholder, fieldRef}) {
 
 function App() {
     const [locations, setLocations] = useState([]);
-    let isActive = false;
+    const[setActive, isActive] = useState(false);
 
     useEffect(() => {
 
@@ -285,7 +285,7 @@ function App() {
                                     <a
                                         className="App-link"
                                         href="#"
-                                        onClick={isActive ? isActive = false : isActive = true}
+                                        onClick={()=> setActive(isActive =>!isActive)}
                                     >
                                         Get Locations
                                     </a>

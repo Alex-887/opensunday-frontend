@@ -2,8 +2,8 @@ import React, { Fragment } from 'react'
 //import Marker compononent
 import {Marker} from 'react-leaflet';
 //importing custom marker the created object from VenueLocationIcon
-import {VenueLocationIcon} from './VenueLocationIcon';
 import MarkerPopup from './MarkerPopup';
+import {VenueLocationIcon} from "./VenueLocationIcon";
 
 function VenueMarkers (props) {
   //we get the props from the Mapview.js
@@ -14,10 +14,8 @@ function VenueMarkers (props) {
 
     const onMarkerClick = (location) =>
     {
-
         console.log("my id : " + location.id);
         sessionStorage.setItem('locationName', location.name);
-
     };
 
 
