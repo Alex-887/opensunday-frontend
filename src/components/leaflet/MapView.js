@@ -3,7 +3,7 @@ import  {Map, Marker, TileLayer} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import UserMarkerPopup from "./UserMarkerPopup";
 import Markers from './VenueMarkers';
-import {VenueLocationIcon} from "./VenueLocationIcon";
+import {BarIcon, CinemaIcon, MuseumIcon, RestaurantIcon, VenueLocationIcon, VenueUserIcon} from "./VenueLocationIcon";
 import MarkerPopup from "./MarkerPopup";
 
 
@@ -11,7 +11,7 @@ import MarkerPopup from "./MarkerPopup";
 function MapView(props) {
 
     const locations = props.locations;
-    //default coordinates on Niedwald if the user doesn't give his geolocalisation info
+    //default coordinates on Zürich if the user doesn't give his geolocalisation info
     const defaultUserLatitude = 47.36667;
     const defaultUserLongitude = 8.55;
 
@@ -19,7 +19,7 @@ function MapView(props) {
     const [UserLongitude, setUserLongitude] = useState(defaultUserLongitude);
     const [isLocated, setIsLocated] = useState(false);
 
-    /*
+
         useEffect(() => {
             if ("geolocation" in navigator) {
 
@@ -40,11 +40,9 @@ function MapView(props) {
                         setIsLocated(false);
                     });
             }
-            return () => {
-                navigator.geolocation.clearWatch(0)
-            };
+
         }, [])
-    */
+
 
     const UserCoordinates = [UserLatitude, UserLongitude]
 
@@ -54,10 +52,27 @@ function MapView(props) {
         sessionStorage.setItem('locationName', location.name);
     };
 
+    const switchIcon = (category) =>
+    {
+        switch(category)
+        {
+            case 1:  return(RestaurantIcon);
+            case 2:  return(MuseumIcon);
+            case 3:  return(CinemaIcon);
+            case 4:  return(BarIcon);
+            default: return(VenueLocationIcon);
+        }
+
+
+    }
+
+
 
     const markers = locations.map((location, id) => (
-        <Marker key={id} position={[location.latitude, location.longitude]} icon={VenueLocationIcon}
+        <Marker key={id} position={[location.latitude, location.longitude]}
+                icon={switchIcon(location.fK_Category)}
                 onClick={() => onMarkerClick(location)}>
+
             <MarkerPopup data={location}/>
         </Marker>
     ));
@@ -67,24 +82,26 @@ function MapView(props) {
     //should be in a class -> VenueUserMarker.js
     const VenueUserMarker = () => {
         const UserMarker = (
-            //giving the localstorage user coordinates to the user marker
             <Marker position={
-                [UserLatitude, UserLongitude]}
-                    /*icon={VenueUserIcon}*/>
+                [UserLatitude, UserLongitude]} icon={VenueUserIcon}>
                 <UserMarkerPopup/>
             </Marker>
         );
-        //return all makers
+
         return <Fragment>{UserMarker}</Fragment>
     };
 
     return (
+
         <Map center={UserCoordinates} zoom={13}>
             <TileLayer
                 attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {markers}
+
+            {isLocated === true && UserLatitude !== defaultUserLatitude && UserLongitude !== defaultUserLongitude && <VenueUserMarker/>}
+
         </Map>
     );
 }

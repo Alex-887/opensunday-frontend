@@ -43,7 +43,8 @@ function VenueMarkers (props) {
 
 
     <Marker key={id} position={[location.latitude, location.longitude]}
-            icon ={switchIcon(location.fK_Category)}
+           // icon ={switchIcon(location.fK_Category)}
+            icon ={VenueLocationIcon}
             onClick={() => onMarkerClick(location)}>
         <MarkerPopup data={location}/>
 
@@ -54,7 +55,7 @@ function VenueMarkers (props) {
   ));
 
   return <Fragment >{markers}</Fragment>
-};
+}
 
 
 

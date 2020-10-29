@@ -170,7 +170,7 @@ function LocationForm() {
         </>
     )
 }
-;
+
 
 
 /* FormInput component - uses the object destructuring syntax for the props */
@@ -197,7 +197,7 @@ function FormInput({type, name, value, onChange, placeholder, fieldRef}) {
 
 function App() {
     const [locations, setLocations] = useState([]);
-    const[setActive, isActive] = useState(false);
+    const[isActive, setActive] = useState(false);
 
     useEffect(() => {
 
@@ -229,7 +229,7 @@ function App() {
 
     function addLocation(location) {
         setLocations((prevLocations) => [location, ...prevLocations]);
-    };
+    }
 
     /*
         async function showLocations() {
@@ -252,13 +252,13 @@ function App() {
                 logout({returnTo: window.location.origin});
             }}>Log out</button>
         );
-    };
+    }
 
     function handleLogin() {
         return (
             <button onClick={loginWithRedirect}>Log in</button>
         );
-    };
+    }
 
     if (loading) {
         return <Loading/>;

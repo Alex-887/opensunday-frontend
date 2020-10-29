@@ -13,10 +13,9 @@ const MarkerPopup = (props) => {
     <p className='popup-text'>Opens at : {data.openingTime}</p>
     <p className='popup-text'>Closes at : {data.closingTime}</p>
     <p className='popup-text'>Category : {data.fK_Category}</p>
-    <p className='popup-text'>Category : {data.fK_City}</p>
+    <p className='popup-text'>City : {data.fK_City}</p>
 
 
-    {/*conditional rendering*/}
     {data.isVerified ?
 
     <h3 id="verified"> This location has been verified.</h3>
