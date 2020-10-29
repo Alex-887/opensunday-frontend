@@ -8,8 +8,6 @@ import LocationDetails from "./pages/LocationDetails";
 import "./App.css";
 import MapView from './components/leaflet/MapView';
 import Grid from '@material-ui/core/Grid';
-import LoginButton from "./components/Login/LoginButton";
-import LeafletMap from "./components/leaflet/LeafletMap";
 
 
 /* Location Form component - the UI & logic to add a new location */

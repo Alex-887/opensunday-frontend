@@ -4,8 +4,6 @@ import 'leaflet/dist/leaflet.css';
 import Markers from './VenueMarkers';
 import {VenueUserIcon} from "./VenueLocationIcon";
 import UserMarkerPopup from "./UserMarkerPopup";
-import RoutingMachine from "./RoutingMachine";
-import Routing from "./Routing";
 import VenueUserMarker from "./VenueUserMarker";
 
 
@@ -13,7 +11,7 @@ import VenueUserMarker from "./VenueUserMarker";
 function MapView(props) {
 
     const locations = props.locations;
-    //default coordinates on Niedwald if the user doesn't give his geolocalisation info
+    //default coordinates on Zürich if the user doesn't give his geolocalisation info
     const defaultUserLatitude = 47.36667;
     const defaultUserLongitude = 8.55;
 
@@ -72,8 +70,8 @@ function MapView(props) {
 
         return (
 
-            //the map will be on the user, if the user doesn't give his location, the map is by default on Niedwald
-            <Map center={UserCoordinates} zoom={13}>
+            //the map will be on the user, if the user doesn't give his location, the map is by default on Zürich
+            <Map center={UserCoordinates} zoom={12}>
 
                 {/* this component adds the titles of the map */}
                 <TileLayer
