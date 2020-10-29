@@ -4,8 +4,6 @@ import 'leaflet/dist/leaflet.css';
 import Markers from './VenueMarkers';
 import {VenueUserIcon} from "./VenueLocationIcon";
 import UserMarkerPopup from "./UserMarkerPopup";
-import RoutingMachine from "./RoutingMachine";
-import Routing from "./Routing";
 import VenueUserMarker from "./VenueUserMarker";
 
 
@@ -13,7 +11,7 @@ import VenueUserMarker from "./VenueUserMarker";
 function MapView(props) {
 
     const locations = props.locations;
-    //default coordinates on Niedwald if the user doesn't give his geolocalisation info
+    //default coordinates on Zürich if the user doesn't give his geolocalisation info
     const defaultUserLatitude = 47.36667;
     const defaultUserLongitude = 8.55;
 
@@ -68,19 +66,15 @@ function MapView(props) {
 
     //CONDITIONAL RENDERING
     //if the coordinates are not default one, we can display the user marker
-    if (isLocated === true && UserLatitude !== defaultUserLatitude && UserLongitude !== defaultUserLongitude) {
 
         return (
 
-            //the map will be on the user, if the user doesn't give his location, the map is by default on Niedwald
             <Map center={UserCoordinates} zoom={13}>
 
-                {/* this component adds the titles of the map */}
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
                 />
-                {/*<Routing start ={[UserLatitude, UserLongitude]} end ={[defaultUserLatitude,defaultUserLongitude]}  map={}/>*/}
 
 
                 {/* pass the data to the markers */}
@@ -89,26 +83,13 @@ function MapView(props) {
 
                 {/*should be cleaner but can't make it work, see Venue UserMarker.js */}
                 {/*<VenueUserMarker props={[UserCoordinates]}/>*/}
+                {isLocated === true && UserLatitude !== defaultUserLatitude && UserLongitude !== defaultUserLongitude && <VenueUserMarker/>}
 
-                <VenueUserMarker/>
 
             </Map>
         );
-    }
-    //the user didn't want to share his location => no user marker
-    else {
-        return (
-            <Map center={UserCoordinates} zoom={13}>
-                {/* this component adds the titles of the map */}
-                <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
-                />
-                {/* pass the data to the markers */}
-                <Markers locations={locations}/>
-            </Map>
-        );
-    }
+
+
 }
 
 
