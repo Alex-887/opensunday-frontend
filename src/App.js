@@ -310,6 +310,7 @@ function App() {
                         />
                         <Route path="/location/:id" component={LocationDetails}/>
                     </Switch>
+                        <br/>
 
                             <Link to="/newLocation">
                                 Add a location
