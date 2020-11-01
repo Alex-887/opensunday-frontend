@@ -1,10 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
-*{
-    box-sizing: border-box;
+* {
     margin: 0;
     padding: 0;
     font-family: 'Lato', sans-serif;
+}
+
+
+.newLocation-Form{
+    text-align:center;
+}
+
+input[type=text], input[type=number], input[type=decimal] {
+    width: 50%;
+    height: 37px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=text]:focus , input[type=number]:focus , input[type=decimal]:focus {
+    border: 3px solid #555;
+}
+
+
+button, input[type=submit] {
+    width: 50%;
+    background-color: #DE354C;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type=submit]:hover {
+    background-color: #932432;
 }
 
 
@@ -13,7 +48,9 @@
 }
 
 .LocationsManagement{
-    justify-content: center;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
 }
 
 .Location-List {

@@ -33,12 +33,8 @@ function MapPage() {
     let {
         loading,
         loginWithRedirect,
-        logout,
         getAccessTokenSilently,
-        isAuthenticated,
     } = useAuth0();
-
-
 
 
 
@@ -49,9 +45,7 @@ function MapPage() {
 
     return(
         <div className="mappage">
-
                     <MapView locations={locations}/>
-
         </div>
     );
 }

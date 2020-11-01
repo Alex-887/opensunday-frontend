@@ -1,5 +1,5 @@
 import React from 'react'
-import * as RiIcons  from 'react-icons/ri';
+import * as BiIcons  from 'react-icons/bi';
 import * as BsIcons  from 'react-icons/bs';
 
 export const SidebarData = [
@@ -10,9 +10,16 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
-        title: 'Locations Management',
-        path: '/LocationsManagement',
-        icon: <RiIcons.RiListSettingsFill/>,
+        title: 'Add a location',
+        path: '/AddLocation',
+        icon: <BiIcons.BiCommentAdd/>,
+        cName: 'nav-text'
+    },
+
+    {
+        title: 'Locations Details',
+        path: '/LocationsDetails',
+        icon: <BiIcons.BiCommentDetail/>,
         cName: 'nav-text'
     }
 
