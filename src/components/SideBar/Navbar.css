@@ -72,6 +72,7 @@
 
 .nav-text a:hover {
     background-color : #932432;
+    width:80%
 }
 
 .nav-menu-items{
@@ -79,7 +80,7 @@
 }
 
 .navbar-toggle{
-    with: 100%;
+    width: 100%;
     height: 80px;
     display: flex;
     justify-content:start;
