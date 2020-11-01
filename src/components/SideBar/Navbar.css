@@ -1,0 +1,92 @@
+.navbar {
+    background-color: #DE354C;
+    height: 50px;
+    display:flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.menu-bars {
+    margin-left: 1rem;
+    font-size: 2rem;
+    background: none;
+}
+
+.App-header  {
+    color:#FFF;
+    margin: 0 auto;
+    align-items: center  ;
+    justify-content: center ;
+    font-size: 20px;
+}
+
+.LogIcon{
+    width:35px;
+    height:35px;
+}
+
+
+.nav-menu {
+    background-color: #DE354C;
+    width: 250px;
+    height: 100vh;
+    display:flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    transition: 850ms;
+    z-index: 1;
+}
+
+.nav-menu.active
+{
+    left: 0;
+    transition: 350ms;
+}
+
+
+.nav-text{
+    display:flex;
+    justifiy-content:start;
+    align-items: center;
+    padding: 8px 0px 8px 16px;
+    list-style: none;
+    height: 60px;
+}
+
+.nav-text a{
+    text-decoration: none;
+    color: #DCE1E3;
+    font-size: 19px;
+    width: 95%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 4px;
+
+}
+
+
+
+.nav-text a:hover {
+    background-color : #932432;
+}
+
+.nav-menu-items{
+    width:100%;
+}
+
+.navbar-toggle{
+    with: 100%;
+    height: 80px;
+    display: flex;
+    justify-content:start;
+    align-items: center;
+}
+
+
+span{
+    margin-left: 10px;
+}

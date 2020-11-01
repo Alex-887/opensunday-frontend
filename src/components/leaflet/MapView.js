@@ -3,7 +3,16 @@ import  {Map, Marker, TileLayer} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import UserMarkerPopup from "./UserMarkerPopup";
 import Markers from './VenueMarkers';
-import {BarIcon, CinemaIcon, MuseumIcon, RestaurantIcon, VenueLocationIcon, VenueUserIcon} from "./VenueLocationIcon";
+import {
+    AttractionIcon,
+    BarIcon,
+    CinemaIcon,
+    MuseumIcon,
+    RestaurantIcon, ShoppingIcon, SportPlaceIcon,
+    VenueLocationIcon,
+    VenueUserIcon,
+    WellnessIcon
+} from "./VenueLocationIcon";
 import MarkerPopup from "./MarkerPopup";
 
 
@@ -44,46 +53,61 @@ function MapView(props) {
         }, [])
 
 
-    const UserCoordinates = [UserLatitude, UserLongitude]
 
+
+    //getting the id of the marker when clicking
     const onMarkerClick = (location) =>
     {
         console.log("my id : " + location.id);
-        sessionStorage.setItem('locationName', location.name);
     };
 
+
+        //different color according to the location category
     const switchIcon = (category) =>
     {
         switch(category)
         {
-            case 1:  return(RestaurantIcon);
-            case 2:  return(MuseumIcon);
-            case 3:  return(CinemaIcon);
-            case 4:  return(BarIcon);
+            case 1:
+                return(RestaurantIcon);
+            case 2:
+                return(BarIcon);
+            case 3:
+                return(WellnessIcon);
+            case 4:
+                return(MuseumIcon);
+            case 5:
+                return(AttractionIcon);
+            case 6:
+                return(ShoppingIcon);
+            case 7:
+                return(SportPlaceIcon);
             default: return(VenueLocationIcon);
+
         }
-
-
     }
 
 
-
+//markers of the locations
     const markers = locations.map((location, id) => (
         <Marker key={id} position={[location.latitude, location.longitude]}
                 icon={switchIcon(location.fK_Category)}
                 onClick={() => onMarkerClick(location)}>
-
             <MarkerPopup data={location}/>
         </Marker>
     ));
 
 
 
-    //should be in a class -> VenueUserMarker.js
+
+
+    //shortcut to store user latitude and longitude in an array
+    const UserCoordinates = [UserLatitude, UserLongitude]
+
+//marker of the user
     const VenueUserMarker = () => {
         const UserMarker = (
             <Marker position={
-                [UserLatitude, UserLongitude]} icon={VenueUserIcon}>
+                UserCoordinates} icon={VenueUserIcon}>
                 <UserMarkerPopup/>
             </Marker>
         );
@@ -93,7 +117,7 @@ function MapView(props) {
 
     return (
 
-        <Map center={UserCoordinates} zoom={13}>
+        <Map center={UserCoordinates} zoom={14}>
             <TileLayer
                 attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

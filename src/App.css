@@ -1,41 +1,19 @@
-.App {
-    text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
 }
 
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
-}
-
-.App-header {
-    background-color: white;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: black;
-}
 
 .App-link {
     color: #61dafb;
 }
 
-.Logout-link {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 1em;
-}
-
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.LocationsManagement{
+    justify-content: center;
 }
 
 .Location-List {
@@ -43,29 +21,14 @@
     padding: 0;
 }
 
-.spinner {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    background-color: white;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-}
 
-hr {
-    background: white;
-    height: 1px;
-    border: 0;
-}
+
 
 /*sets the width and height of the leaflet container*/
 .leaflet-container {
-    width: 80vw;
-    height: 70vh;
+    width:  100vw;
+    height: 93vh;
+    z-index: 0;
 }
 
 .button_open {
@@ -82,4 +45,7 @@ hr {
 
 #notVerified{
     color:red;
+}
+#Login{
+    justify-content: right;
 }

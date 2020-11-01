@@ -36,9 +36,9 @@ export const MuseumIcon = L.icon({
 });
 
 
-export const CinemaIcon = L.icon({
-  iconUrl: require('../../assets/cinema_icon.svg'),
-  iconRetinaUrl: require('../../assets/cinema_icon.svg'),
+export const WellnessIcon = L.icon({
+  iconUrl: require('../../assets/wellness_icon.svg'),
+  iconRetinaUrl: require('../../assets/wellness_icon.svg'),
   iconAnchor: null,
   shadowUrl: null,
   shadowSize: null,
@@ -60,6 +60,42 @@ export const BarIcon = L.icon({
 });
 
 
+export const AttractionIcon = L.icon({
+  iconUrl: require('../../assets/attraction_icon.svg'),
+  iconRetinaUrl: require('../../assets/attraction_icon.svg'),
+  iconAnchor: null,
+  shadowUrl: null,
+  shadowSize: null,
+  shadowAnchor: null,
+  iconSize: [35, 35],
+  className: 'leaflet-venue-icon'
+});
+
+export const ShoppingIcon = L.icon({
+  iconUrl: require('../../assets/shopping_icon.svg'),
+  iconRetinaUrl: require('../../assets/shopping_icon.svg'),
+  iconAnchor: null,
+  shadowUrl: null,
+  shadowSize: null,
+  shadowAnchor: null,
+  iconSize: [35, 35],
+  className: 'leaflet-venue-icon'
+});
+
+
+export const SportPlaceIcon = L.icon({
+  iconUrl: require('../../assets/sportplace_icon.svg'),
+  iconRetinaUrl: require('../../assets/sportplace_icon.svg'),
+  iconAnchor: null,
+  shadowUrl: null,
+  shadowSize: null,
+  shadowAnchor: null,
+  iconSize: [35, 35],
+  className: 'leaflet-venue-icon'
+});
+
+
+
 export const VenueUserIcon = L.icon({
   iconUrl: require('../../assets/venue_user_icon.svg'),
   iconRetinaUrl: require('../../assets/venue_user_icon.svg'),
@@ -67,6 +103,6 @@ export const VenueUserIcon = L.icon({
   shadowUrl: null,
   shadowSize: null,
   shadowAnchor: null,
-  iconSize: [40, 40],
+  iconSize: [50, 50],
   className: 'leaflet-venue-icon'
 });
