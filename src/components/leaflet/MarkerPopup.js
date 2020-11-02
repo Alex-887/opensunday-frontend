@@ -3,11 +3,14 @@ import {Popup} from 'react-leaflet';
 import request from "../../utils/request";
 import endpoints from "../../endpoints";
 import {useAuth0} from "@auth0/auth0-react";
+import Location from "../location/Location";
 
 //this componentn open the popup whenver we click on a marker on the map.
 const MarkerPopup = (props) => {
     const {...data} = props.data;
     const [likes, setLikes] = useState([]);
+    const [userLikes, setUserLikes] = useState([]);
+    const [liked,setLiked] = useState(false);
 
     let {
         loading,
@@ -30,6 +33,29 @@ const MarkerPopup = (props) => {
     }
 
     getLikes();
+
+    //call the method getlikes by location and show amount of likes in popup => create this method in an Effect
+    async function getLikesUser() {
+        let likes = await request(
+            `${process.env.REACT_APP_SERVER_URL}${endpoints.getLikesByLocation}`,
+            getAccessTokenSilently,
+            loginWithRedirect
+        );
+
+        if (likes && likes.length > 0) {
+            console.log(likes);
+            setUserLikes(likes);
+        }
+
+        let result = userLikes.filter((like) => like.fk_location === (data.id));
+
+        if(result < 1){
+            setLiked(false);
+        }
+        else{
+            setLiked(true);
+        }
+    }
 
     const body = JSON.stringify({
             "FK_Location": data.id,
@@ -56,7 +82,12 @@ const MarkerPopup = (props) => {
             FK_User: newLikeResponse.FK_User,
             isLiked: newLikeResponse.isLiked
         }]);
+        setLiked(true);
     };
+
+
+
+
 
     return (<Popup>
         <h1 className='popup-text'>{data.name}</h1>
@@ -67,10 +98,8 @@ const MarkerPopup = (props) => {
         <p className='popup-text'>Category : {data.fK_Category}</p>
         <p className='popup-text'>City : {data.fK_City}</p>
         <p className='popup-text'>Likes : {likes.length}</p>
-
-        <button
-            onClick={likeClickHandler}>A button!
-        </button>
+        {liked ? <button disabled={true}>Liked</button> : <button
+        onClick={likeClickHandler}>Like</button>}
     </Popup>);
 };
 
