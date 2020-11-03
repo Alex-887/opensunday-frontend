@@ -7,16 +7,16 @@ import auth_config from './auth_config';
 import { Auth0Provider } from "@auth0/auth0-react";
 
 ReactDOM.render(
-  <Auth0Provider
-    domain={auth_config.domain}
-    clientId={auth_config.clientId}
-    redirectUri={window.location.origin}
-    audience={auth_config.audience}
-    useRefreshTokens={true}
-  >
-    <App />
-  </Auth0Provider>,
-  document.getElementById('root')
+    <Auth0Provider
+        domain={auth_config.domain}
+        clientId={auth_config.clientId}
+        redirectUri={window.location.origin}
+        audience={auth_config.audience}
+        useRefreshTokens={true}
+    >
+      <App />
+    </Auth0Provider>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
