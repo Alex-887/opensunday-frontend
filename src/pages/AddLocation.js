@@ -1,10 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useAuth0} from "@auth0/auth0-react";
 import request from "../utils/request";
 import endpoints from "../endpoints.json";
 import {Link} from "react-router-dom";
-import DropdownButton from "react-bootstrap";
-
 
 /* Location Form component - the UI & logic to add a new location */
 function LocationForm() {
@@ -26,10 +24,30 @@ function LocationForm() {
             CityName: ''
         });
 
+    const [categories, setCategories] = useState([]);
+
     let {
         loginWithRedirect,
         getAccessTokenSilently,
     } = useAuth0();
+
+    useEffect(() => {
+        //call the method getlikes by location and show amount of likes in popup
+        async function getCategories() {
+            let categories = await request(
+                `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}`,
+                getAccessTokenSilently,
+                loginWithRedirect
+            );
+
+            if (categories && categories.length > 0) {
+                console.log(categories);
+                setCategories(categories);
+            }
+        }
+
+        getCategories();
+    }, []);
 
     /* Add a ref for the title text input */
     // this.titleInputRef = React.createRef();
@@ -84,96 +102,95 @@ function LocationForm() {
         <>
             {/* Render a form allowing to add a new location to the list */}
             <h1 className="newLocation-Form">Add a new Location</h1>
+
+
             <form onSubmit={handleFormSubmit} className="newLocation-Form">
                 {/* All inputs have been replaced with FormInput components */}
 
 
                 <FormInput
                     /* Link the created ref to the title input */
-                           type="text"
-                           name="Name"
-                           value={newLocation.Name}
-                           onChange={handleFormInputChange}
-                           placeholder="Name"
+                    type="text"
+                    name="Name"
+                    value={newLocation.Name}
+                    onChange={handleFormInputChange}
+                    placeholder="Name"
                 />
                 <FormInput
-                           type="decimal"
-                           name="Latitude"
-                           value={newLocation.Latitude}
-                           onChange={handleFormInputChange}
-                           placeholder="Latitude"
+                    type="decimal"
+                    name="Latitude"
+                    value={newLocation.Latitude}
+                    onChange={handleFormInputChange}
+                    placeholder="Latitude"
                 />
                 <FormInput
-                           type="decimal"
-                           name="Longitude"
-                           value={newLocation.Longitude}
-                           onChange={handleFormInputChange}
-                           placeholder="Longitude"
+                    type="decimal"
+                    name="Longitude"
+                    value={newLocation.Longitude}
+                    onChange={handleFormInputChange}
+                    placeholder="Longitude"
                 />
                 <FormInput
-                           type="text"
-                           name="Address"
-                           value={newLocation.Address}
-                           onChange={handleFormInputChange}
-                           placeholder="Address"
-                />
-
-
-                <FormInput
-                           type="text"
-                           name="Telephone"
-                           value={newLocation.Telephone}
-                           onChange={handleFormInputChange}
-                           placeholder="Telephone"
-                />
-
-                <FormInput
-                           type="text"
-                           name="OpeningTime"
-                           value={newLocation.OpeningTime}
-                           onChange={handleFormInputChange}
-                           placeholder="Opening time"
-                />
-
-                <FormInput
-                           type="text"
-                           name="ClosingTime"
-                           value={newLocation.ClosingTime}
-                           onChange={handleFormInputChange}
-                           placeholder="Closing Time"
+                    type="text"
+                    name="Address"
+                    value={newLocation.Address}
+                    onChange={handleFormInputChange}
+                    placeholder="Address"
                 />
 
 
                 <FormInput
-                           type="text"
-                           name="CategoryName"
-                           value={newLocation.CategoryName}
-                           onChange={handleFormInputChange}
-                           placeholder="Category"
+                    type="text"
+                    name="Telephone"
+                    value={newLocation.Telephone}
+                    onChange={handleFormInputChange}
+                    placeholder="Telephone"
+                />
+
+                <FormInput
+                    type="text"
+                    name="OpeningTime"
+                    value={newLocation.OpeningTime}
+                    onChange={handleFormInputChange}
+                    placeholder="Opening time"
+                />
+
+                <FormInput
+                    type="text"
+                    name="ClosingTime"
+                    value={newLocation.ClosingTime}
+                    onChange={handleFormInputChange}
+                    placeholder="Closing Time"
+                />
+
+                <FormInput
+                    type="text"
+                    name="CategoryName"
+                    value={newLocation.CategoryName}
+                    onChange={handleFormInputChange}
+                    placeholder="Category"
                 />
 
 
-
-
                 <FormInput
-                           type="text"
-                           name="CityName"
-                           value={newLocation.CityName}
-                           onChange={handleFormInputChange}
-                           placeholder="City"
+                    type="text"
+                    name="CityName"
+                    value={newLocation.CityName}
+                    onChange={handleFormInputChange}
+                    placeholder="City"
                 />
 
 
                 <FormInput
-                           type="number"
-                           name="NPA"
-                           value={newLocation.NPA}
-                           onChange={handleFormInputChange}
-                           placeholder="NPA"
+                    type="number"
+                    name="NPA"
+                    value={newLocation.NPA}
+                    onChange={handleFormInputChange}
+                    placeholder="NPA"
                 />
 
                 <Link to="/">
-                <button type="submit">Add Location</button>
+                    <button type="submit">Add Location</button>
                 </Link>
             </form>
         </>
@@ -206,10 +223,7 @@ function FormInput({type, name, value, onChange, placeholder, fieldRef}) {
 function AddLocation() {
 
 
-
-
     const [locations, setLocations] = useState([]);
-
 
 
     function addLocation(location) {
