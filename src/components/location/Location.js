@@ -1,48 +1,265 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import "./Location.css";
-import {Popup} from "react-leaflet";
 import request from "../../utils/request";
 import endpoints from "../../endpoints.json";
 import {useAuth0} from "@auth0/auth0-react";
 import {Link} from "react-router-dom";
+import Editable from "../Editable/EditableTemplate";
 
 export default function Location(props) {
-     const { ...locationsData } = props;
+
+    const inputRef = useRef();
+    const [locations, setLocations] = useState(props);
 
 
+    //auth0 hook
     let {
         loginWithRedirect,
         getAccessTokenSilently,
     } = useAuth0();
 
-
-
+//delete method
     const handleDelete = async locationId => {
-
-      await request(
-            `${process.env.REACT_APP_SERVER_URL}${endpoints.postLocations}/${locationId}`,
+        await request(
+            `${process.env.REACT_APP_SERVER_URL}${endpoints.deleteLocations}/${locationId}`,
             getAccessTokenSilently,
             loginWithRedirect,
             "DELETE"
         )
-
-
     }
+
+//change on modify
+    const handleInputChange = (e) => {
+        const {name, value} = e.target;
+        setLocations(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
 
 
     return (
         <div className="location">
-            <h1>{locationsData.name}</h1>
-            <br/>
-            <h2>Address : {locationsData.address}</h2>
-            <p>Telephone : {locationsData.telephone}</p>
-            <p>Opens at : {locationsData.openingTime}</p>
-            <p>Closes at : {locationsData.closingTime}</p>
-            <p>Category : {locationsData.fK_Category}</p>
-            <p>City : {locationsData.fK_City}</p>
 
-            <Link to="/LocationsDetails/">
-            <button type="submit" onClick={() => handleDelete(locationsData.id)}>Delete</button>
+
+            <table className="TableLocation">
+                <tr>
+                    <td>Location name :</td>
+                    <td>
+                        <Editable
+                            text={locations.name}
+                            placeholder="Write a location name"
+                            type="input"
+                            childRef={inputRef}>
+                            <input
+                                type="text"
+                                name="name"
+                                ref={inputRef}
+                                placeholder="Location name"
+                                value={locations.name}
+                                onChange={handleInputChange}
+                            />
+                        </Editable>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>Address :</td>
+                    <td>
+                        <Editable
+                            text={locations.address}
+                            placeholder="Write an address"
+                            type="input"
+                            childRef={inputRef}>
+                            <input
+                                type="text"
+                                name="address"
+                                ref={inputRef}
+                                placeholder="Address"
+                                value={locations.address}
+                                onChange={handleInputChange}
+                            />
+                        </Editable>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>Telephone :</td>
+                    <td>
+                        <Editable
+                            text={locations.telephone}
+                            placeholder="Write a telephone number"
+                            type="input"
+                            childRef={inputRef}>
+                            <input
+                                type="text"
+                                name="telephone"
+                                ref={inputRef}
+                                placeholder="Telephone number"
+                                value={locations.telephone}
+                                onChange={handleInputChange}
+                            />
+                        </Editable>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>Opening time :</td>
+                    <td>
+                        <Editable
+                            text={locations.openingTime}
+                            placeholder="Write the opening time"
+                            type="input"
+                            childRef={inputRef}>
+
+                            <input
+                                type="text"
+                                name="openingTime"
+                                ref={inputRef}
+                                placeholder="Opening time"
+                                value={locations.openingTime}
+                                onChange={handleInputChange}
+                            />
+                        </Editable>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Closing time :</td>
+                    <td>
+                        <Editable
+                            text={locations.closingTime}
+                            placeholder="Write the closing time"
+                            type="input"
+                            childRef={inputRef}>
+
+                            <input
+                                type="text"
+                                name="closingTime"
+                                ref={inputRef}
+                                placeholder="Closing time"
+                                value={locations.closingTime}
+                                onChange={handleInputChange}
+                            />
+                        </Editable>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>Category name :</td>
+                    <td>
+                        <Editable
+                            text={locations.categoryName}
+                            placeholder="Write the category"
+                            type="input"
+                            childRef={inputRef}>
+
+                            <input
+                                type="text"
+                                name="categoryName"
+                                ref={inputRef}
+                                placeholder="Category name"
+                                value={locations.categoryName}
+                                onChange={handleInputChange}
+                            />
+                        </Editable>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td>NPA :</td>
+                    <td>
+                        <Editable
+                            text={locations.fK_City}
+                            placeholder="Write the NPA"
+                            type="input"
+                            childRef={inputRef}>
+
+                            <input
+                                type="number"
+                                name="fK_City"
+                                ref={inputRef}
+                                placeholder="NPA"
+                                value={locations.fK_City}
+                                onChange={handleInputChange}
+                            />
+                        </Editable>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>City name :</td>
+                    <td>
+                        <Editable
+                            text={locations.cityName}
+                            placeholder="Write the city"
+                            type="input"
+                            childRef={inputRef}>
+
+                            <input
+                                type="text"
+                                name="cityName"
+                                ref={inputRef}
+                                placeholder="City name"
+                                value={locations.cityName}
+                                onChange={handleInputChange}
+                            />
+                        </Editable>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Latitude :</td>
+                    <td>
+                        <Editable
+                            text={locations.latitude}
+                            placeholder="Write the latitude"
+                            type="input"
+                            childRef={inputRef}>
+
+                            <input
+                                type="decimal"
+                                name="latitude"
+                                ref={inputRef}
+                                placeholder="Latitude"
+                                value={locations.latitude}
+                                onChange={handleInputChange}
+                            />
+                        </Editable>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Longitude :</td>
+                    <td>
+                        <Editable
+                            text={locations.longitude}
+                            placeholder="Write the longitude"
+                            type="input"
+                            childRef={inputRef}>
+
+                            <input
+                                type="decimal"
+                                name="Longitude"
+                                ref={inputRef}
+                                placeholder="Longitude"
+                                value={locations.longitude}
+                                onChange={handleInputChange}
+                            />
+                        </Editable>
+                    </td>
+                </tr>
+
+
+            </table>
+
+            <Link to="/LocationsDetails">
+                <button  type="submit" onClick={() => handleDelete(locations.id)}>Delete</button>
             </Link>
         </div>
     );

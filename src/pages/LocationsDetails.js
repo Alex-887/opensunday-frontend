@@ -8,7 +8,6 @@ import endpoints from "../endpoints.json";
 
 function LocationsDetails() {
 
-    const [isActive, setActive] = useState(false);
     const [locations, setLocations] = useState([]);
 
 
@@ -47,9 +46,6 @@ function LocationsDetails() {
     }, []);
 
 
-    function addLocation(location) {
-        setLocations((prevLocations) => [location, ...prevLocations]);
-    }
 
 
     let {
