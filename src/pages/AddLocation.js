@@ -102,7 +102,6 @@ function LocationForm() {
             "POST",
             body
         )
-        //let newLocation =  newLocationResponse.toJSON();
         setNewLocation(newLocationResponse);
     };
 

@@ -2,6 +2,7 @@
   "locations": "/api/locations",
   "postLocations" : "/api/Locations",
   "deleteLocations" : "/api/Locations",
+  "putLocations" : "/api/Locations",
   "getLikesByLocation" : "/api/Likes",
   "postLike" : "/api/Likes",
   "categories" : "/api/Categories"

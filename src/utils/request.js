@@ -26,6 +26,7 @@ export default async function (url, getAccessTokenSilently, loginWithRedirect, m
       });
     }
 
+
     if(method === "DELETE"){
       response = await fetch(url, {
         method: method,

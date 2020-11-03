@@ -18,6 +18,40 @@ export default function Location(props) {
         getAccessTokenSilently,
     } = useAuth0();
 
+
+
+    const body = JSON.stringify({
+            "Name": locations.name,
+            "Creator": locations.creator,
+            "Latitude": parseFloat(locations.latitude),
+            "Longitude": parseFloat(locations.longitude),
+            "Address": locations.address,
+            "Telephone": locations.telephone,
+            "OpeningTime": locations.openingTime,
+            "ClosingTime": locations.closingTime,
+            "FK_City": Number(locations.fK_City)
+        }
+    )
+
+
+    /* Form submission handler */
+    const handleEdit = async () => {
+
+
+        let newLocationResponse = await request(
+            `${process.env.REACT_APP_SERVER_URL}${endpoints.putLocations}/${locations.id}`,
+            getAccessTokenSilently,
+            loginWithRedirect,
+            "PUT",
+            body
+        )
+        setLocations(newLocationResponse);
+    };
+
+
+
+
+
 //delete method
     const handleDelete = async locationId => {
         await request(
@@ -258,6 +292,10 @@ export default function Location(props) {
 
             </table>
 
+            <Link to="/LocationsDetails">
+                <button type="submit" onClick={() => handleEdit(locations.id)}>Edit</button>
+            </Link>
+            <br/>
             <Link to="/LocationsDetails">
                 <button  type="submit" onClick={() => handleDelete(locations.id)}>Delete</button>
             </Link>
