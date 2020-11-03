@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import  {Map, Marker, TileLayer} from 'react-leaflet';
+import {Map, Marker, TileLayer} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import UserMarkerPopup from "./UserMarkerPopup";
 import Markers from './VenueMarkers';
@@ -14,6 +14,9 @@ import {
     WellnessIcon
 } from "./VenueLocationIcon";
 import MarkerPopup from "./MarkerPopup";
+import request from "../../utils/request";
+import endpoints from "../../endpoints.json";
+import {useAuth0} from "@auth0/auth0-react";
 
 
 //class that renders the Map component, later used in App.js
@@ -28,76 +31,67 @@ function MapView(props) {
     const [UserLongitude, setUserLongitude] = useState(defaultUserLongitude);
     const [isLocated, setIsLocated] = useState(false);
 
-
-        useEffect(() => {
-            if ("geolocation" in navigator) {
-
-
-                //watchPosition() => for a user that moves around to track his position
-                navigator.geolocation.getCurrentPosition(function (position) {
-                        setIsLocated(true);
-                        console.log("User latitude is :", position.coords.latitude);
-                        console.log("User longitude is :", position.coords.longitude);
-
-                        //set the user coordinates into the hook
-                        setUserLatitude(position.coords.latitude)
-                        setUserLongitude(position.coords.longitude)
-
-                    },
-                    function (error) {
-                        console.error("Error Code = " + error.code + " - " + error.message);
-                        setIsLocated(false);
-                    });
-            }
-
-        }, [])
+    useEffect(() => {
+        if ("geolocation" in navigator) {
 
 
+            //watchPosition() => for a user that moves around to track his position
+            navigator.geolocation.getCurrentPosition(function (position) {
+                    setIsLocated(true);
+                    console.log("User latitude is :", position.coords.latitude);
+                    console.log("User longitude is :", position.coords.longitude);
 
+                    //set the user coordinates into the hook
+                    setUserLatitude(position.coords.latitude)
+                    setUserLongitude(position.coords.longitude)
+
+                },
+                function (error) {
+                    console.error("Error Code = " + error.code + " - " + error.message);
+                    setIsLocated(false);
+                });
+        }
+
+    }, [])
 
     //getting the id of the marker when clicking
-    const onMarkerClick = (location) =>
-    {
+    const onMarkerClick = (location) => {
         console.log("my id : " + location.id);
     };
 
-
-        //different color according to the location category
-    const switchIcon = (category) =>
-    {
-        switch(category)
-        {
+    //different color according to the location category
+    const switchIcon = (category) => {
+        switch (category) {
             case 1:
-                return(RestaurantIcon);
+                return (RestaurantIcon);
             case 2:
-                return(BarIcon);
+                return (BarIcon);
             case 3:
-                return(WellnessIcon);
+                return (WellnessIcon);
             case 4:
-                return(MuseumIcon);
+                return (MuseumIcon);
             case 5:
-                return(AttractionIcon);
+                return (AttractionIcon);
             case 6:
-                return(ShoppingIcon);
+                return (ShoppingIcon);
             case 7:
-                return(SportPlaceIcon);
-            default: return(VenueLocationIcon);
+                return (SportPlaceIcon);
+            default:
+                return (VenueLocationIcon);
 
         }
     }
 
 
 //markers of the locations
+
     const markers = locations.map((location, id) => (
         <Marker key={id} position={[location.latitude, location.longitude]}
                 icon={switchIcon(location.fK_Category)}
                 onClick={() => onMarkerClick(location)}>
-            <MarkerPopup data={location}/>
+            <MarkerPopup data={location} />
         </Marker>
     ));
-
-
-
 
 
     //shortcut to store user latitude and longitude in an array
@@ -124,7 +118,8 @@ function MapView(props) {
             />
             {markers}
 
-            {isLocated === true && UserLatitude !== defaultUserLatitude && UserLongitude !== defaultUserLongitude && <VenueUserMarker/>}
+            {isLocated === true && UserLatitude !== defaultUserLatitude && UserLongitude !== defaultUserLongitude &&
+            <VenueUserMarker/>}
 
         </Map>
     );

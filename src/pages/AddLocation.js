@@ -3,16 +3,9 @@ import {useAuth0} from "@auth0/auth0-react";
 import request from "../utils/request";
 import endpoints from "../endpoints.json";
 import {Link} from "react-router-dom";
-import DropdownButton from "react-bootstrap";
-
 
 /* Location Form component - the UI & logic to add a new location */
 function LocationForm() {
-
-
-    // ==================== Dropdown list ==========================
-    const [categories, setCategories] = useState(    { label: "Loading ...", value: "" });
-    const [loading, setLoading] = React.useState(true);
 
     // ==================== HOOKS ==========================
     const [newLocation, setNewLocation] = useState(
@@ -31,32 +24,30 @@ function LocationForm() {
             CityName: ''
         });
 
+    const [categories, setCategories] = useState([]);
+
     let {
         loginWithRedirect,
         getAccessTokenSilently,
     } = useAuth0();
 
-    // useEffect(() => {
-    //
-    //     async function getCategories() {
-    //         let categories = await request(
-    //             `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}`,
-    //             getAccessTokenSilently,
-    //             loginWithRedirect
-    //         );
-    //
-    //         setCategories(body.results.map(({ name }) => ({ label: name, value: name })));
-    //         setLoading(false);
-    //
-    //
-    //         if (categories && categories.length > 0) {
-    //             setCategories(categories);
-    //         }
-    //     }
-    //
-    //     getCategories();
-    // }, []);
+    useEffect(() => {
+        //call the method getlikes by location and show amount of likes in popup
+        async function getCategories() {
+            let categories = await request(
+                `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}`,
+                getAccessTokenSilently,
+                loginWithRedirect
+            );
 
+            if (categories && categories.length > 0) {
+                console.log(categories);
+                setCategories(categories);
+            }
+        }
+
+        getCategories();
+    }, []);
 
     /* Add a ref for the title text input */
     // this.titleInputRef = React.createRef();
@@ -102,6 +93,7 @@ function LocationForm() {
             "POST",
             body
         )
+        //let newLocation =  newLocationResponse.toJSON();
         setNewLocation(newLocationResponse);
     };
 
@@ -110,6 +102,8 @@ function LocationForm() {
         <>
             {/* Render a form allowing to add a new location to the list */}
             <h1 className="newLocation-Form">Add a new Location</h1>
+
+
             <form onSubmit={handleFormSubmit} className="newLocation-Form">
                 {/* All inputs have been replaced with FormInput components */}
 
@@ -168,18 +162,6 @@ function LocationForm() {
                     onChange={handleFormInputChange}
                     placeholder="Closing Time"
                 />
-                <br/>
-
-                {/*<select>*/}
-                {/*    {categories.map(({categories}) => (*/}
-                {/*        <option key={categories.id} value={categories.name}>*/}
-                {/*            {categories.name}*/}
-                {/*        </option>*/}
-                {/*    ))}*/}
-                {/*</select>*/}
-
-
-                <br/>
 
                 <FormInput
                     type="text"
@@ -187,15 +169,6 @@ function LocationForm() {
                     value={newLocation.CategoryName}
                     onChange={handleFormInputChange}
                     placeholder="Category"
-                />
-
-
-                <FormInput
-                    type="number"
-                    name="NPA"
-                    value={newLocation.NPA}
-                    onChange={handleFormInputChange}
-                    placeholder="NPA"
                 />
 
 
@@ -208,6 +181,13 @@ function LocationForm() {
                 />
 
 
+                <FormInput
+                    type="number"
+                    name="NPA"
+                    value={newLocation.NPA}
+                    onChange={handleFormInputChange}
+                    placeholder="NPA"
+                />
 
                 <Link to="/">
                     <button type="submit">Add Location</button>

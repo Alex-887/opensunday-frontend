@@ -5,5 +5,6 @@
   "putLocations" : "/api/Locations",
   "getLikesByLocation" : "/api/Likes",
   "postLike" : "/api/Likes",
+  "user" : "/api/User",
   "categories" : "/api/Categories"
 }
