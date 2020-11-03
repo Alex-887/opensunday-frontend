@@ -30,7 +30,7 @@ export default function LocationDetails({ match }) {
   return (
       <div>
         {location ? <Location {...location} /> : <p>Loading details...</p>}
-        <Link className="App-link" to="/">
+        <Link className="App-link" to="/LocationsDetails/#">
           Back
         </Link>
       </div>

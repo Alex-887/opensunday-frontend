@@ -37,15 +37,14 @@ function MapPage() {
     } = useAuth0();
 
 
-
     if (loading) {
         return <Loading/>;
     }
 
 
-    return(
-        <div className="mappage">
-                    <MapView locations={locations}/>
+    return (
+        <div className="MapPage">
+            <MapView locations={locations}/>
         </div>
     );
 }

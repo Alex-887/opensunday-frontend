@@ -15,14 +15,23 @@ export default async function (url, getAccessTokenSilently, loginWithRedirect, m
       });
 
     }
-    else{
+    if(method === "POST"){
       response = await fetch(url, {
         method: method,
         headers: {
           'Content-Type': "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         },
         body
+      });
+    }
+
+    if(method === "DELETE"){
+      response = await fetch(url, {
+        method: method,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
     }
 

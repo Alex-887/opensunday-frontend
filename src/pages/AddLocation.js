@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {useAuth0} from "@auth0/auth0-react";
-import {Link, Switch, Route} from "react-router-dom";
-import LocationDetails from "./LocationDetails";
 import request from "../utils/request";
 import endpoints from "../endpoints.json";
+import {Link} from "react-router-dom";
+import DropdownButton from "react-bootstrap";
 
 
 /* Location Form component - the UI & logic to add a new location */
@@ -153,6 +153,8 @@ function LocationForm() {
                 />
 
 
+
+
                 <FormInput
                            type="text"
                            name="CityName"
@@ -170,8 +172,9 @@ function LocationForm() {
                            placeholder="NPA"
                 />
 
-
+                <Link to="/">
                 <button type="submit">Add Location</button>
+                </Link>
             </form>
         </>
     )

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useAuth0} from "@auth0/auth0-react";
-import {Link, Switch, Route} from "react-router-dom";
+import {BrowserRouter, Link, Switch, Route} from "react-router-dom";
 import LocationDetails from "./LocationDetails";
 import request from "../utils/request";
 import endpoints from "../endpoints.json";
@@ -10,7 +10,6 @@ function LocationsDetails() {
 
     const [isActive, setActive] = useState(false);
     const [locations, setLocations] = useState([]);
-
 
 
     let handleLocationsClick = async (e) => {
@@ -48,67 +47,50 @@ function LocationsDetails() {
     }, []);
 
 
-
-
     function addLocation(location) {
         setLocations((prevLocations) => [location, ...prevLocations]);
     }
 
 
     let {
-        loading,
         loginWithRedirect,
-        logout,
         getAccessTokenSilently,
-        isAuthenticated,
     } = useAuth0();
 
 
     return (
         <div className="LocationsDetails">
+            <h1>Locations available</h1>
 
+
+            <br/>
+            <BrowserRouter>
 
             <Switch>
+
                 <Route
                     path="/LocationsDetails/"
                     exact
                     render={() => (
                         <>
-                            <a
-                                className="App-link"
-                                href="/LocationsDetails/#"
-                                onClick={() => setActive(isActive => !isActive)}
-                            >
-                                Get Locations
-                            </a>
-                            {isActive ? (
-                                <>
-                                    {handleLocationsClick}
-                                    <ul className="Locations-List">
-                                        {locations.map((location) => (
-                                            <li key={location.id}>
-                                                <Link
-                                                    className="App-link"
-                                                    to={`/LocationsDetails/location/${location.id}`}>
-                                                    {location.name}
-                                                </Link>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </>
-                            ) : <></>
-
-                            }
+                            {handleLocationsClick}
+                            <ul className="Locations-List">
+                                {locations.map((location) => (
+                                    <li key={location.id}>
+                                        <Link
+                                            className="App-link"
+                                            to={`/LocationsDetails/location/${location.id}`}>
+                                            {location.name}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
                         </>
                     )}
                 />
-                <Route path="/location/:id" component={LocationDetails}/>
+                <Route path="/LocationsDetails/location/:id" component={LocationDetails}/>
             </Switch>
-            <br/>
-
-
-
-
+            </BrowserRouter>
         </div>
     );
 

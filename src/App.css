@@ -6,6 +6,20 @@
     font-family: 'Lato', sans-serif;
 }
 
+.App-link {
+    color: #61dafb;
+    font-size: 26px;
+    text-align: center;
+}
+
+
+
+.LocationsDetails{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 20px;
+    overflow: auto;
+}
 
 .newLocation-Form{
     text-align:center;
@@ -43,9 +57,7 @@ button[type=submit]:hover {
 }
 
 
-.App-link {
-    color: #61dafb;
-}
+
 
 .LocationsManagement{
     padding: 12px 20px;
@@ -57,9 +69,6 @@ button[type=submit]:hover {
     list-style-type: none;
     padding: 0;
 }
-
-
-
 
 /*sets the width and height of the leaflet container*/
 .leaflet-container {
@@ -86,3 +95,4 @@ button[type=submit]:hover {
 #Login{
     justify-content: right;
 }
+
