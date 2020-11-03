@@ -2,5 +2,6 @@
   "locations": "/api/locations",
   "postLocations" : "/api/Locations",
   "getLikesByLocation" : "/api/Likes",
-  "postLike" : "/api/Likes"
+  "postLike" : "/api/Likes",
+  "user" : "/api/User"
 }
