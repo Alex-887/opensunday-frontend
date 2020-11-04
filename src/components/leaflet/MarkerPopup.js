@@ -79,6 +79,29 @@ const MarkerPopup = (props) => {
         setLiked(true);
     };
 
+    const dislikeClickHandler = async (event) => {
+        /* Prevent the form submission from reloading the page */
+        event.preventDefault();
+
+        /* post method with a form, CF request.js */
+        let newLikeResponse = await request(
+            `${process.env.REACT_APP_SERVER_URL}${endpoints.user}/${data.id}`,
+            getAccessTokenSilently,
+            loginWithRedirect,
+            "DELETE"
+        )
+        //rm like from likes list state hook
+        if(newLikeResponse){
+            const newList = likes.splice(likes.indexOf(data.id), 1);
+            //let newLocation =  newLocationResponse.toJSON();
+            console.log( "Location " + data.id + "Like-Removed = " + newLikeResponse);
+            setLikes([...newList]);
+            setLiked(false);
+        }
+
+    };
+
+
     return (<Popup>
         <h1 className='popup-text'>{data.name}</h1>
         <h2 className='popup-text'>{data.address}</h2>
@@ -88,7 +111,7 @@ const MarkerPopup = (props) => {
         <p className='popup-text'>Category : {data.fK_Category}</p>
         <p className='popup-text'>City : {data.fK_City}</p>
         <p className='popup-text'>Likes : {likes.length}</p>
-        {liked ? <button disabled={true}>Liked</button> : <button
+        {liked ? <button onClick={dislikeClickHandler}>Dislike</button> : <button
             onClick={likeClickHandler}>Like</button>}
     </Popup>);
 };
