@@ -37,7 +37,8 @@ function LocationForm() {
             let categories = await request(
                 `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}`,
                 getAccessTokenSilently,
-                loginWithRedirect
+                loginWithRedirect,
+                "GET",
             );
 
             if (categories && categories.length > 0) {
@@ -62,28 +63,25 @@ function LocationForm() {
         }));
     };
 
-
-    const body = JSON.stringify({
-            "Name": newLocation.Name,
-            "Creator": "Front-End",
-            "Latitude": parseFloat(newLocation.Latitude),
-            "Longitude": parseFloat(newLocation.Longitude),
-            "Address": newLocation.Address,
-            "Telephone": newLocation.Telephone,
-            "OpeningTime": newLocation.OpeningTime,
-            "ClosingTime": newLocation.ClosingTime,
-            "CategoryName": newLocation.CategoryName,
-            "CityName": newLocation.CityName,
-            "NPA": Number(newLocation.NPA)
-        }
-    )
-
-
     /* Form submission handler */
     const handleFormSubmit = async (event) => {
         /* Prevent the form submission from reloading the page */
         event.preventDefault();
 
+        const body = JSON.stringify({
+                "Name": newLocation.Name,
+                "Creator": "Front-End",
+                "Latitude": parseFloat(newLocation.Latitude),
+                "Longitude": parseFloat(newLocation.Longitude),
+                "Address": newLocation.Address,
+                "Telephone": newLocation.Telephone,
+                "OpeningTime": newLocation.OpeningTime,
+                "ClosingTime": newLocation.ClosingTime,
+                "CategoryName": newLocation.CategoryName,
+                "CityName": newLocation.CityName,
+                "NPA": Number(newLocation.NPA)
+            }
+        )
 
         /* post method with a form, CF request.js */
         let newLocationResponse = await request(
@@ -100,16 +98,9 @@ function LocationForm() {
 
     return (
         <>
-            {/* Render a form allowing to add a new location to the list */}
             <h1 className="newLocation-Form">Add a new Location</h1>
-
-
             <form onSubmit={handleFormSubmit} className="newLocation-Form">
-                {/* All inputs have been replaced with FormInput components */}
-
-
                 <FormInput
-                    /* Link the created ref to the title input */
                     type="text"
                     name="Name"
                     value={newLocation.Name}
@@ -137,8 +128,6 @@ function LocationForm() {
                     onChange={handleFormInputChange}
                     placeholder="Address"
                 />
-
-
                 <FormInput
                     type="text"
                     name="Telephone"
@@ -146,7 +135,6 @@ function LocationForm() {
                     onChange={handleFormInputChange}
                     placeholder="Telephone"
                 />
-
                 <FormInput
                     type="text"
                     name="OpeningTime"
@@ -154,7 +142,6 @@ function LocationForm() {
                     onChange={handleFormInputChange}
                     placeholder="Opening time"
                 />
-
                 <FormInput
                     type="text"
                     name="ClosingTime"
@@ -162,7 +149,6 @@ function LocationForm() {
                     onChange={handleFormInputChange}
                     placeholder="Closing Time"
                 />
-
                 <FormInput
                     type="text"
                     name="CategoryName"
@@ -170,8 +156,6 @@ function LocationForm() {
                     onChange={handleFormInputChange}
                     placeholder="Category"
                 />
-
-
                 <FormInput
                     type="text"
                     name="CityName"
@@ -179,8 +163,6 @@ function LocationForm() {
                     onChange={handleFormInputChange}
                     placeholder="City"
                 />
-
-
                 <FormInput
                     type="number"
                     name="NPA"
@@ -189,9 +171,8 @@ function LocationForm() {
                     placeholder="NPA"
                 />
 
-                <Link to="/">
                     <button type="submit">Add Location</button>
-                </Link>
+
             </form>
         </>
     )
@@ -201,19 +182,15 @@ function LocationForm() {
 /* FormInput component - uses the object destructuring syntax for the props */
 function FormInput({type, name, value, onChange, placeholder, fieldRef}) {
     return (
-        /* Wrap both elements in a React Fragment */
         <>
-            {/* Render the input with the passed props */}
             <input
                 type={type}
                 name={name}
                 value={value}
                 placeholder={placeholder}
                 onChange={onChange}
-                /* fieldRef defaults to null if no ref is given */
                 ref={fieldRef ? fieldRef : null}
             />
-            {/* Render a line break after the input */}
             <br/>
         </>
     );
