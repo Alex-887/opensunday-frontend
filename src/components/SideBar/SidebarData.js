@@ -1,6 +1,8 @@
 import React from 'react'
 import * as BiIcons  from 'react-icons/bi';
 import * as BsIcons  from 'react-icons/bs';
+import * as MdIcons from 'react-icons/md';
+
 
 export const SidebarData = [
     {
@@ -21,6 +23,14 @@ export const SidebarData = [
         path: '/LocationsDetails',
         icon: <BiIcons.BiCommentDetail/>,
         cName: 'nav-text'
+    },
+
+    {
+        title: 'Preferences',
+        path: '/Preferences',
+        icon: <MdIcons.MdFavorite/>,
+        cName: 'nav-text'
     }
+
 
 ]
