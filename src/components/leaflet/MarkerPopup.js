@@ -92,11 +92,18 @@ const MarkerPopup = (props) => {
         )
         //rm like from likes list state hook
         if(newLikeResponse){
-            const newList = likes.splice(likes.indexOf(data.id), 1);
-            //let newLocation =  newLocationResponse.toJSON();
-            console.log( "Location " + data.id + "Like-Removed = " + newLikeResponse);
-            setLikes([...newList]);
-            setLiked(false);
+            if(likes.length <2){
+                setLikes([]);
+                setLiked(false);
+            }
+            else{
+                const newList = likes.splice(likes.indexOf(data.id), 1);
+                //let newLocation =  newLocationResponse.toJSON();
+                console.log( "Location " + data.id + "Like-Removed = " + newLikeResponse);
+                setLikes([...newList]);
+                setLiked(false);
+            }
+
         }
 
     };
