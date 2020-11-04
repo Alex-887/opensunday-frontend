@@ -52,8 +52,8 @@ function Navbar() {
                     </header>
 
                     <div className="Login">
-                        {isAuthenticated ? handleLogout() : handleLogin()}
-                    </div>
+                    {isAuthenticated ? handleLogout() : handleLogin()}
+                </div>
 
                 </div>
 
@@ -66,8 +66,7 @@ function Navbar() {
                                 <AiIcons.AiOutlineClose />
                             </Link>
                         </li>
-
-                        {SidebarData.map((item, index) => {
+                        {isAuthenticated ? SidebarData.map((item, index) => {
                             return (
                                 <li key={index} className={item.cName}>
                                     <Link to={item.path}>
@@ -76,7 +75,7 @@ function Navbar() {
                                     </Link>
                                 </li>
                             );
-                        })}
+                        }): <li></li>}
                     </ul>
                 </nav>
             </IconContext.Provider>

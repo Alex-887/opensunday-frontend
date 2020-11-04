@@ -6,22 +6,28 @@ import AddLocation from './pages/AddLocation'
 import MapPage from './pages/MapPage'
 import LocationsDetails from "./pages/LocationsDetails";
 import Preferences from "./pages/Preferences";
+import {useAuth0} from "@auth0/auth0-react";
 
 
 function App() {
-
-    //check if user is logged otherwise ask to log in
+    let {
+        isAuthenticated,
+    } = useAuth0();
 
     return (
         <>
             <Router>
                 <Navbar/>
-                <Switch>
+                {isAuthenticated ?
+                    <Switch>
                     <Route path='/' exact component={MapPage}/>
                     <Route path='/AddLocation' exact component={AddLocation}/>
                     <Route path='/LocationsDetails' exact component={LocationsDetails}/>
                     <Route path='/Preferences' exact component={Preferences}/>
-                </Switch>
+                </Switch>:
+                    <Switch>
+                        <Route path='/' exact component={MapPage}/>
+                    </Switch>}
             </Router>
         </>
     );
