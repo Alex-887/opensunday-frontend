@@ -1,5 +1,5 @@
 {
-  "locations": "/api/locations",
+  "locations": "/api/Locations",
   "postLocations" : "/api/Locations",
   "deleteLocations" : "/api/Locations",
   "putLocations" : "/api/Locations",
