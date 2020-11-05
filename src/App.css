@@ -39,6 +39,19 @@ input[type=text]:focus , input[type=number]:focus , input[type=decimal]:focus {
 }
 
 
+input:invalid+span:after {
+    position: absolute;
+    content: '✖';
+    padding-left: 5px;
+}
+
+input:valid+span:after {
+    position: absolute;
+    content: '✓';
+    padding-left: 5px;
+}
+
+
 button, input[type=submit] {
     width: 50%;
     background-color: #DE354C;

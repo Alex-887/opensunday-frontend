@@ -190,7 +190,7 @@ function FormInput({type, name, value, onChange, placeholder, fieldRef}) {
                 placeholder={placeholder}
                 onChange={onChange}
                 ref={fieldRef ? fieldRef : null}
-            />
+                required />
             <br/>
         </>
     );
