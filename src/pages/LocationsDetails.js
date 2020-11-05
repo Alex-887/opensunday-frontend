@@ -4,7 +4,8 @@ import {BrowserRouter, Link, Switch, Route} from "react-router-dom";
 import LocationDetails from "./LocationDetails";
 import request from "../utils/request";
 import endpoints from "../endpoints.json";
-
+import ListGroup from 'react-bootstrap/ListGroup';
+import ListGroupItem from 'react-bootstrap/ListGroupItem';
 
 function LocationsDetails() {
 
