@@ -11,8 +11,6 @@ import request from "./utils/request";
 import endpoints from "./endpoints.json";
 import Alert from "react-bootstrap/Alert";
 import Button from "@material-ui/core/Button";
-import * as BiIcons from "react-icons/bi";
-import SocialMediaButtons from "./components/button/SharingButtons";
 
 function App() {
 
@@ -71,7 +69,7 @@ function App() {
                             <Alert show={show} variant="warning" >
                                 <Alert.Heading>Welcome at OpenSunday!</Alert.Heading>
                                 <p>
-                                    Please Login to use our funcionalities!
+                                    Please Login to use our functionalities!
                                 </p>
                                 <hr />
                                 <div className="d-flex justify-content-end">

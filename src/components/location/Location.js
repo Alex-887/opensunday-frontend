@@ -20,29 +20,21 @@ export default function Location(props) {
     } = useAuth0();
 
 
-    const body = JSON.stringify({
-            "Id": Number(locations.id),
-            "Name": locations.name,
-            "Creator": locations.creator,
-            "Latitude": parseFloat(locations.latitude),
-            "Longitude": parseFloat(locations.longitude),
-            "Address": locations.address,
-            "Telephone": locations.telephone,
-            "OpeningTime": locations.openingTime,
-            "ClosingTime": locations.closingTime,
-            "FK_City": Number(locations.fK_City),
-            "FK_Category": Number(locations.fK_Category)
-
-        }
-    )
-
-
     /* Form submission handler */
     const handleEdit = async () => {
 
 
+        const body = JSON.stringify({
+            "Id": Number(locations.id),
+            "Name": locations.name,
+            "Telephone": locations.telephone,
+            "OpeningTime": locations.openingTime,
+            "ClosingTime": locations.closingTime,
+            }
+        )
+
         let newLocationResponse = await request(
-            `${process.env.REACT_APP_SERVER_URL}${endpoints.putLocations}/${locations.id}`,
+            `${process.env.REACT_APP_SERVER_URL}${endpoints.putLocations}`,
             getAccessTokenSilently,
             loginWithRedirect,
             "PUT",
@@ -97,27 +89,6 @@ export default function Location(props) {
 
 
                 <tr>
-                    <td>Address :</td>
-                    <td>
-                        <Editable
-                            text={locations.address}
-                            placeholder="Write an address"
-                            type="input"
-                            childRef={inputRef}>
-                            <input
-                                type="text"
-                                name="address"
-                                ref={inputRef}
-                                placeholder="Address"
-                                value={locations.address}
-                                onChange={handleInputChange}
-                            />
-                        </Editable>
-                    </td>
-                </tr>
-
-
-                <tr>
                     <td>Telephone :</td>
                     <td>
                         <Editable
@@ -136,7 +107,6 @@ export default function Location(props) {
                         </Editable>
                     </td>
                 </tr>
-
 
                 <tr>
                     <td>Opening time :</td>
@@ -181,111 +151,6 @@ export default function Location(props) {
                 </tr>
 
 
-                <tr>
-                    <td>Category name :</td>
-                    <td>
-                        <Editable
-                            text={locations.categoryName}
-                            placeholder="Write the category"
-                            type="input"
-                            childRef={inputRef}>
-
-                            <input
-                                type="text"
-                                name="categoryName"
-                                ref={inputRef}
-                                placeholder="Category name"
-                                value={locations.categoryName}
-                                onChange={handleInputChange}
-                            />
-                        </Editable>
-                    </td>
-                </tr>
-
-
-                <tr>
-                    <td>NPA :</td>
-                    <td>
-                        <Editable
-                            text={locations.fK_City}
-                            placeholder="Write the NPA"
-                            type="input"
-                            childRef={inputRef}>
-
-                            <input
-                                type="number"
-                                name="fK_City"
-                                ref={inputRef}
-                                placeholder="NPA"
-                                value={locations.fK_City}
-                                onChange={handleInputChange}
-                            />
-                        </Editable>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>City name :</td>
-                    <td>
-                        <Editable
-                            text={locations.cityName}
-                            placeholder="Write the city"
-                            type="input"
-                            childRef={inputRef}>
-
-                            <input
-                                type="text"
-                                name="cityName"
-                                ref={inputRef}
-                                placeholder="City name"
-                                value={locations.cityName}
-                                onChange={handleInputChange}
-                            />
-                        </Editable>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Latitude :</td>
-                    <td>
-                        <Editable
-                            text={locations.latitude}
-                            placeholder="Write the latitude"
-                            type="input"
-                            childRef={inputRef}>
-
-                            <input
-                                type="decimal"
-                                name="latitude"
-                                ref={inputRef}
-                                placeholder="Latitude"
-                                value={locations.latitude}
-                                onChange={handleInputChange}
-                            />
-                        </Editable>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>Longitude :</td>
-                    <td>
-                        <Editable
-                            text={locations.longitude}
-                            placeholder="Write the longitude"
-                            type="input"
-                            childRef={inputRef}>
-
-                            <input
-                                type="decimal"
-                                name="Longitude"
-                                ref={inputRef}
-                                placeholder="Longitude"
-                                value={locations.longitude}
-                                onChange={handleInputChange}
-                            />
-                        </Editable>
-                    </td>
-                </tr>
 
 
             </table>

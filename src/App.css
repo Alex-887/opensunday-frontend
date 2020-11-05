@@ -6,11 +6,7 @@
     font-family: 'Lato', sans-serif;
 }
 
-.App-link {
-    color: #61dafb;
-    font-size: 26px;
-    text-align: center;
-}
+
 
 .LocationsDetails{
     margin-top: 20px;
@@ -102,4 +98,16 @@ button[type=submit]:hover {
 #dropdown-item-button{
     background: #DE354C;
     border-color: #932432;
+}
+.TableLocation {
+    margin: 0 auto;
+    font-size:34px;
+    width: 50%;
+    justify-items: center;
+    border-collapse: collapse;
+}
+
+td, th {
+    border: medium  solid #DE354C;
+    width: 50%;
 }

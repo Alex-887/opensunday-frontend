@@ -20,6 +20,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Control from "react-leaflet-control";
 
 
+
 //class that renders the Map component, later used in App.js
 function MapView(props) {
     const [locations, setLocations] = useState([])
@@ -31,14 +32,11 @@ function MapView(props) {
     const [UserLatitude, setUserLatitude] = useState(defaultUserLatitude);
     const [UserLongitude, setUserLongitude] = useState(defaultUserLongitude);
     const [isLocated, setIsLocated] = useState(false);
-
     const [categories, setCategories] = useState([]);
 
     let {
         loginWithRedirect,
         getAccessTokenSilently,
-        isAuthenticated,
-        logout,
     } = useAuth0();
 
     useEffect(() => {

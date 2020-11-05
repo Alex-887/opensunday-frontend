@@ -1,4 +1,3 @@
-// Editable.js
 import React, {useEffect, useState} from "react";
 
 // Component accept text, placeholder values and also pass what type of Input - input, textarea so that we can use it for styling accordingly
@@ -10,7 +9,8 @@ const Editable = ({
                       children,
                       ...props
                   }) => {
-    // Manage the state whether to show the label or the input box. By default, label will be shown.
+
+// Manage the state whether to show the label or the input box. By default, label will be shown
     const [isEditing, setEditing] = useState(false);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ const Editable = ({
     }, [isEditing, childRef]);
 
 
-// Event handler while pressing any key while editing
+// Event handler if we want to use text area (enter key to write on another line)
     const handleKeyDown = (event, type) => {
 
         const { key } = event;
