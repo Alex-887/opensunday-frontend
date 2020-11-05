@@ -2,7 +2,6 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {Map, Marker, TileLayer} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import UserMarkerPopup from "./UserMarkerPopup";
-import Markers from './VenueMarkers';
 import {
     AttractionIcon,
     BarIcon,
