@@ -18,12 +18,13 @@ import endpoints from "../../endpoints.json";
 import {useAuth0} from "@auth0/auth0-react";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
+import Control from "react-leaflet-control";
 
 
 //class that renders the Map component, later used in App.js
 function MapView(props) {
+    const [locations, setLocations] = useState([])
 
-    const locations = props.locations;
     //default coordinates on Zürich if the user doesn't give his geolocalisation info
     const defaultUserLatitude = 47.36667;
     const defaultUserLongitude = 8.55;
@@ -40,6 +41,25 @@ function MapView(props) {
         isAuthenticated,
         logout,
     } = useAuth0();
+
+    useEffect(() => {
+
+        async function getLocations() {
+            let locations = await request(
+                `${process.env.REACT_APP_SERVER_URL}${endpoints.locations}`,
+                getAccessTokenSilently,
+                loginWithRedirect
+            );
+
+
+            if (locations && locations.length > 0) {
+                console.log(locations);
+                setLocations(locations);
+            }
+        }
+
+        getLocations();
+    }, []);
 
     useEffect(() => {
         //call the method getlikes by location and show amount of likes in popup
@@ -125,15 +145,34 @@ function MapView(props) {
 
     const dpButton = () => (
         <div id="btn-grp">
-        <DropdownButton id="dropdown-item-button" title="Category">
-            {dpItems}
-        </DropdownButton>
+            <DropdownButton id="dropdown-item-button" title="Category">
+                {dpItems}
+            </DropdownButton>
         </div>
     );
 
     const dpItems = categories.map((category, id) => (
-    <Dropdown.Item as="button">{category.name}</Dropdown.Item>
+        <Dropdown.Item as="button" onClick={() => locationsByCategory(category.name)}>{category.name}</Dropdown.Item>
     ));
+
+    //getting the id of the marker when clicking
+    const locationsByCategory = (name) => {
+        console.log("clicked category: " + name);
+        async function getLocations() {
+            let locations = await request(
+                `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}/${name}`,
+                getAccessTokenSilently,
+                loginWithRedirect
+            );
+
+            if (locations && locations.length > 0) {
+                console.log("======== Locations By Category =========");
+                console.log(locations);
+                setLocations(locations);
+            }
+        }
+        getLocations();
+    };
 
 
     //shortcut to store user latitude and longitude in an array
@@ -153,7 +192,7 @@ function MapView(props) {
 
     return (
         <>
-            {dpButton()}
+
 
             <Map center={UserCoordinates} zoom={14} id="leafletMap">
                 <TileLayer
@@ -161,6 +200,9 @@ function MapView(props) {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
 
+                <Control position="topright">
+                    {dpButton()}
+                </Control>
                 {markers}
 
                 {isLocated === true && UserLatitude !== defaultUserLatitude && UserLongitude !== defaultUserLongitude &&

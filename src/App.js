@@ -66,18 +66,21 @@ function App() {
                     <Switch>
                     <Route path='/' exact component={MapPage}/>
                     </Switch>
-                    <Alert show={show} variant="success">
-                        <Alert.Heading>Welcome at OpenSunday!</Alert.Heading>
-                        <p>
-                            Please Login to use our funcionalities!
-                        </p>
-                        <hr />
-                        <div className="d-flex justify-content-end">
-                            <Button onClick={handleAlert} variant="outline-success">
-                                go to Login!
-                            </Button>
+                        <div id="alert">
+                            <Alert show={show} variant="warning" >
+                                <Alert.Heading>Welcome at OpenSunday!</Alert.Heading>
+                                <p>
+                                    Please Login to use our funcionalities!
+                                </p>
+                                <hr />
+                                <div className="d-flex justify-content-end">
+                                    <Button onClick={handleAlert} variant="outline-success">
+                                        go to Login!
+                                    </Button>
+                                </div>
+                            </Alert>
                         </div>
-                    </Alert>
+
                     </>}
             </Router>
 

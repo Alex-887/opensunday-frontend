@@ -87,16 +87,19 @@ button[type=submit]:hover {
     justify-content: right;
 }
 
-#dropdown-item-button {
-    z-index: 1;
-
-}
 #btn-grp{
-   margin-left: 90%;
-    margin-top: 2%;
-    z-index: 1;
+    width: 100%;
+    margin-right: 90px;
 }
 
-#leafletMap{
-    z-index: 0;
+#alert{
+    alignment: center;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#dropdown-item-button{
+    background: #DE354C;
+    border-color: #932432;
 }
