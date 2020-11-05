@@ -16,6 +16,8 @@ import MarkerPopup from "./MarkerPopup";
 import request from "../../utils/request";
 import endpoints from "../../endpoints.json";
 import {useAuth0} from "@auth0/auth0-react";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
 
 
 //class that renders the Map component, later used in App.js
@@ -29,6 +31,35 @@ function MapView(props) {
     const [UserLatitude, setUserLatitude] = useState(defaultUserLatitude);
     const [UserLongitude, setUserLongitude] = useState(defaultUserLongitude);
     const [isLocated, setIsLocated] = useState(false);
+
+    const [categories, setCategories] = useState([]);
+
+    let {
+        loginWithRedirect,
+        getAccessTokenSilently,
+        isAuthenticated,
+        logout,
+    } = useAuth0();
+
+    useEffect(() => {
+        //call the method getlikes by location and show amount of likes in popup
+        async function getCategories() {
+            let categories = await request(
+                `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}`,
+                getAccessTokenSilently,
+                loginWithRedirect,
+                "GET",
+            );
+
+            if (categories && categories.length > 0) {
+                console.log(categories);
+                setCategories(categories);
+            }
+        }
+
+        getCategories();
+    }, []);
+
 
     useEffect(() => {
         if ("geolocation" in navigator) {
@@ -88,8 +119,20 @@ function MapView(props) {
         <Marker key={id} position={[location.latitude, location.longitude]}
                 icon={switchIcon(location.fK_Category)}
                 onClick={() => onMarkerClick(location)}>
-            <MarkerPopup data={location} />
+            <MarkerPopup data={location}/>
         </Marker>
+    ));
+
+    const dpButton = () => (
+        <div id="btn-grp">
+        <DropdownButton id="dropdown-item-button" title="Category">
+            {dpItems}
+        </DropdownButton>
+        </div>
+    );
+
+    const dpItems = categories.map((category, id) => (
+    <Dropdown.Item as="button">{category.name}</Dropdown.Item>
     ));
 
 
@@ -109,18 +152,23 @@ function MapView(props) {
     };
 
     return (
+        <>
+            {dpButton()}
 
-        <Map center={UserCoordinates} zoom={14}>
-            <TileLayer
-                attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {markers}
+            <Map center={UserCoordinates} zoom={14} id="leafletMap">
+                <TileLayer
+                    attribution='&copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
 
-            {isLocated === true && UserLatitude !== defaultUserLatitude && UserLongitude !== defaultUserLongitude &&
-            <VenueUserMarker/>}
+                {markers}
 
-        </Map>
+                {isLocated === true && UserLatitude !== defaultUserLatitude && UserLongitude !== defaultUserLongitude &&
+                <VenueUserMarker/>}
+
+            </Map>
+        </>
+
     );
 }
 

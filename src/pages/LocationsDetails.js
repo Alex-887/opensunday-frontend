@@ -8,9 +8,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
 
 function LocationsDetails() {
-
     const [locations, setLocations] = useState([]);
-
 
     let handleLocationsClick = async (e) => {
         e.preventDefault();
@@ -25,7 +23,6 @@ function LocationsDetails() {
             setLocations(locations);
         }
     };
-
 
     useEffect(() => {
 
@@ -46,14 +43,10 @@ function LocationsDetails() {
         getLocations();
     }, []);
 
-
-
-
     let {
         loginWithRedirect,
         getAccessTokenSilently,
     } = useAuth0();
-
 
     return (
         <div className="LocationsDetails">

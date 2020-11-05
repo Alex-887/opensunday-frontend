@@ -20,32 +20,7 @@ function Navbar(props) {
         isAuthenticated,
         logout,
     } = useAuth0();
-
-    const [categories, setCategories] = useState([]);
-
-    useEffect(() => {
-        //call the method getlikes by location and show amount of likes in popup
-        async function getCategories() {
-            let categories = await request(
-                `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}`,
-                getAccessTokenSilently,
-                loginWithRedirect,
-                "GET",
-            );
-
-            if (categories && categories.length > 0) {
-                console.log(categories);
-                setCategories(categories);
-            }
-        }
-
-        getCategories();
-    }, []);
-
-
     const showSidebar = () => setSidebar(!sidebar);
-
-
 
     function handleLogout() {
         return (
@@ -61,11 +36,6 @@ function Navbar(props) {
         );
     }
 
-    const dropdown = categories.map((category, id) => (
-        <option value={id}>{category.name}</option>
-    ));
-
-
     //icon context to provide the same color to all icons
     return (
         <>
@@ -75,22 +45,14 @@ function Navbar(props) {
                     <Link to='#' className='menu-bars'>
                         <FaIcons.FaBars onClick={showSidebar}/>
                     </Link>
+                    <header className="App-header">
+                        <h1>OpenSunday!</h1>
+                    </header>
 
-                        <select>
-                            {dropdown}
-                        </select>
-
-
-                        <header className="App-header">
-                            <h1>OpenSunday!</h1>
-                        </header>
-
-                        <div className="Login">
-                            {isAuthenticated ? handleLogout() : handleLogin()}
-                        </div>
-
+                    <div className="Login">
+                        {isAuthenticated ? handleLogout() : handleLogin()}
+                    </div>
                 </div>
-
 
                 <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className='nav-menu-items' onClick={showSidebar}>
@@ -113,7 +75,7 @@ function Navbar(props) {
                 </nav>
             </IconContext.Provider>
         </>
-);
+    );
 }
 
 export default Navbar;

@@ -9,9 +9,12 @@ import Preferences from "./pages/Preferences";
 import {useAuth0} from "@auth0/auth0-react";
 import request from "./utils/request";
 import endpoints from "./endpoints.json";
-
+import Alert from "react-bootstrap/Alert";
+import Button from "@material-ui/core/Button";
+import * as BiIcons from "react-icons/bi";
 
 function App() {
+
     let {
         loginWithRedirect,
         getAccessTokenSilently,
@@ -19,6 +22,7 @@ function App() {
     } = useAuth0();
 
     const [categories, setCategories] = useState([]);
+    const [show, setShow] = useState(true);
 
     useEffect(() => {
         //call the method getlikes by location and show amount of likes in popup
@@ -39,6 +43,13 @@ function App() {
         getCategories();
     }, []);
 
+    const handleAlert = async (event) => {
+        /* Prevent the form submission from reloading the page */
+        event.preventDefault();
+        setShow(false);
+        await loginWithRedirect();
+    };
+
 
     return (
         <>
@@ -51,9 +62,23 @@ function App() {
                     <Route path='/LocationsDetails' exact component={LocationsDetails}/>
                     <Route path='/Preferences' exact component={Preferences}/>
                 </Switch>:
+                    <>
                     <Switch>
-                        <Route path='/' exact component={MapPage}/>
-                    </Switch>}
+                    <Route path='/' exact component={MapPage}/>
+                    </Switch>
+                    <Alert show={show} variant="success">
+                        <Alert.Heading>Welcome at OpenSunday!</Alert.Heading>
+                        <p>
+                            Please Login to use our funcionalities!
+                        </p>
+                        <hr />
+                        <div className="d-flex justify-content-end">
+                            <Button onClick={handleAlert} variant="outline-success">
+                                go to Login!
+                            </Button>
+                        </div>
+                    </Alert>
+                    </>}
             </Router>
 
 
