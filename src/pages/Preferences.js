@@ -3,9 +3,7 @@ import MapView from "../components/leaflet/MapView";
 import request from "../utils/request";
 import endpoints from "../endpoints.json";
 import {useAuth0} from "@auth0/auth0-react";
-import Loading from "../components/location/Loading";
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
-import LocationDetails from "./LocationDetails";
 import Preference from "./Preference";
 
 
@@ -28,7 +26,6 @@ function Preferences() {
             }
         }
     };
-
 
     useEffect(() => {
         async function getLocations() {
