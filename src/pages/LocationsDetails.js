@@ -58,10 +58,8 @@ function LocationsDetails() {
         <div className="LocationsDetails">
             <h1>Locations available</h1>
 
-
             <br/>
             <BrowserRouter>
-
             <Switch>
 
                 <Route
@@ -70,17 +68,18 @@ function LocationsDetails() {
                     render={() => (
                         <>
                             {handleLocationsClick}
-                            <ul className="Locations-List">
+                            <ul className="list-group">
                                 {locations.map((location) => (
-                                    <li key={location.id}>
+                                    <li key={location.id} className="list-group-item">
                                         <Link
-                                            className="App-link"
+
                                             to={`/LocationsDetails/location/${location.id}`}>
                                             {location.name}
                                         </Link>
                                     </li>
                                 ))}
                             </ul>
+
                         </>
                     )}
                 />
