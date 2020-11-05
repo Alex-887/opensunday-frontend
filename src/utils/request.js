@@ -15,7 +15,20 @@ export default async function (url, getAccessTokenSilently, loginWithRedirect, m
       });
 
     }
-    if(method === "POST" || method === "PUT"){
+    if(method === "PUT"){
+      response = await fetch(url, {
+        method: method,
+        headers: {
+          Accept: "application/json",
+          'Content-Type': "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body
+      });
+    }
+
+
+    if(method === "PUT"){
       response = await fetch(url, {
         method: method,
         headers: {

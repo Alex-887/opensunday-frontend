@@ -19,8 +19,8 @@ export default function Location(props) {
     } = useAuth0();
 
 
-
     const body = JSON.stringify({
+            "Id": Number(locations.id),
             "Name": locations.name,
             "Creator": locations.creator,
             "Latitude": parseFloat(locations.latitude),
@@ -29,7 +29,9 @@ export default function Location(props) {
             "Telephone": locations.telephone,
             "OpeningTime": locations.openingTime,
             "ClosingTime": locations.closingTime,
-            "FK_City": Number(locations.fK_City)
+            "FK_City": Number(locations.fK_City),
+            "FK_Category": Number(locations.fK_Category)
+
         }
     )
 
@@ -47,9 +49,6 @@ export default function Location(props) {
         )
         setLocations(newLocationResponse);
     };
-
-
-
 
 
 //delete method
@@ -297,7 +296,7 @@ export default function Location(props) {
             </Link>
             <br/>
             <Link to="/LocationsDetails">
-                <button  type="submit" onClick={() => handleDelete(locations.id)}>Delete</button>
+                <button type="submit" onClick={() => handleDelete(locations.id)}>Delete</button>
             </Link>
         </div>
     );
