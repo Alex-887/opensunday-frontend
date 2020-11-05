@@ -69,17 +69,17 @@ function LocationsDetails() {
                     render={() => (
                         <>
                             {handleLocationsClick}
-                            <ul className="list-group">
+                            <ListGroup className="list-group">
                                 {locations.map((location) => (
-                                    <li key={location.id} className="list-group-item">
+                                    <ListGroup.Item key={location.id} className="list-group-item">
                                         <Link
 
                                             to={`/LocationsDetails/location/${location.id}`}>
                                             {location.name}
                                         </Link>
-                                    </li>
+                                    </ListGroup.Item>
                                 ))}
-                            </ul>
+                            </ListGroup>
 
                         </>
                     )}

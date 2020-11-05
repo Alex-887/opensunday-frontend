@@ -69,8 +69,9 @@ button[type=submit]:hover {
 
 /*sets the width and height of the leaflet container*/
 .leaflet-container {
+    position: fixed;
     width:  100vw;
-    height: 93vh;
+    height: 100%;
     z-index: 0;
 }
 
@@ -82,13 +83,6 @@ button[type=submit]:hover {
     background-color: white;
 }
 
-#verified{
-    color : lawngreen;
-}
-
-#notVerified{
-    color:red;
-}
 #Login{
     justify-content: right;
 }

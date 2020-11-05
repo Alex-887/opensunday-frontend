@@ -55,8 +55,12 @@ function App() {
                         <Route path='/' exact component={MapPage}/>
                     </Switch>}
             </Router>
+
+
         </>
     );
 }
+
+
 
 export default App;

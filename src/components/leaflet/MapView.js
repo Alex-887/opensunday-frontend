@@ -6,7 +6,6 @@ import Markers from './VenueMarkers';
 import {
     AttractionIcon,
     BarIcon,
-    CinemaIcon,
     MuseumIcon,
     RestaurantIcon, ShoppingIcon, SportPlaceIcon,
     VenueLocationIcon,
