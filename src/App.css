@@ -12,8 +12,6 @@
     text-align: center;
 }
 
-
-
 .LocationsDetails{
     margin-top: 20px;
     text-align: center;
@@ -57,8 +55,6 @@ button[type=submit]:hover {
 }
 
 
-
-
 .LocationsManagement{
     padding: 12px 20px;
     margin: 8px 0;
@@ -68,6 +64,7 @@ button[type=submit]:hover {
 .Location-List {
     list-style-type: none;
     padding: 0;
+
 }
 
 /*sets the width and height of the leaflet container*/

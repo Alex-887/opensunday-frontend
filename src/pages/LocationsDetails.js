@@ -7,12 +7,9 @@ import endpoints from "../endpoints.json";
 
 
 function LocationsDetails() {
+
     const [locations, setLocations] = useState([]);
 
-    let {
-        loginWithRedirect,
-        getAccessTokenSilently,
-    } = useAuth0();
 
     let handleLocationsClick = async (e) => {
         e.preventDefault();
@@ -21,19 +18,24 @@ function LocationsDetails() {
             getAccessTokenSilently,
             loginWithRedirect
         );
+
         if (locations && locations.length > 0) {
             console.log(locations);
             setLocations(locations);
         }
     };
 
+
     useEffect(() => {
+
         async function getLocations() {
             let locations = await request(
                 `${process.env.REACT_APP_SERVER_URL}${endpoints.locations}`,
                 getAccessTokenSilently,
                 loginWithRedirect
             );
+
+
             if (locations && locations.length > 0) {
                 console.log(locations);
                 setLocations(locations);
@@ -43,14 +45,21 @@ function LocationsDetails() {
         getLocations();
     }, []);
 
+
+
+
+    let {
+        loginWithRedirect,
+        getAccessTokenSilently,
+    } = useAuth0();
+
+
     return (
         <div className="LocationsDetails">
             <h1>Locations available</h1>
 
-
             <br/>
             <BrowserRouter>
-
             <Switch>
 
                 <Route
@@ -59,17 +68,18 @@ function LocationsDetails() {
                     render={() => (
                         <>
                             {handleLocationsClick}
-                            <ul className="Locations-List">
+                            <ul className="list-group">
                                 {locations.map((location) => (
-                                    <li key={location.id}>
+                                    <li key={location.id} className="list-group-item">
                                         <Link
-                                            className="App-link"
+
                                             to={`/LocationsDetails/location/${location.id}`}>
                                             {location.name}
                                         </Link>
                                     </li>
                                 ))}
                             </ul>
+
                         </>
                     )}
                 />

@@ -15,7 +15,7 @@ export default async function (url, getAccessTokenSilently, loginWithRedirect, m
       });
 
     }
-    if(method === "POST"){
+    if(method === "POST" || method === "PUT"){
       response = await fetch(url, {
         method: method,
         headers: {

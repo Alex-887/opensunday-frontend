@@ -1,6 +1,8 @@
 {
   "locations": "/api/Locations",
   "postLocations" : "/api/Locations",
+  "deleteLocations" : "/api/Locations",
+  "putLocations" : "/api/Locations",
   "getLikesByLocation" : "/api/Likes",
   "postLike" : "/api/Likes",
   "user" : "/api/User",

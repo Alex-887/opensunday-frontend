@@ -6,6 +6,7 @@ import {useAuth0} from "@auth0/auth0-react";
 import Loading from "../components/location/Loading";
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import LocationDetails from "./LocationDetails";
+import Preference from "./Preference";
 
 
 function Preferences() {
@@ -76,7 +77,7 @@ function Preferences() {
                             </>
                         )}
                     />
-                    <Route path="/Preferences/location/:id" component={LocationDetails}/>
+                    <Route path="/Preferences/location/:id" component={Preference}/>
                 </Switch>
             </BrowserRouter>
         </div>

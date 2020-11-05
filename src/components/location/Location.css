@@ -1,6 +1,12 @@
-.location {
-    margin: 1em;
-    padding: 1em;
-    font-size:30px;
+.TableLocation {
+margin: 0 auto;
+    font-size:34px;
+    width: 50%;
+    justify-items: center;
+    border-collapse: collapse;
+}
 
+td, th {
+    border: medium  solid #DE354C;
+    width: 50%;
 }
