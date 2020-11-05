@@ -1,5 +1,5 @@
 {
-  "locations": "/api/locations",
+  "locations": "/api/Locations",
   "postLocations" : "/api/Locations",
   "getLikesByLocation" : "/api/Likes",
   "postLike" : "/api/Likes",

@@ -7,10 +7,12 @@ import endpoints from "../endpoints.json";
 
 
 function LocationsDetails() {
-
-    const [isActive, setActive] = useState(false);
     const [locations, setLocations] = useState([]);
 
+    let {
+        loginWithRedirect,
+        getAccessTokenSilently,
+    } = useAuth0();
 
     let handleLocationsClick = async (e) => {
         e.preventDefault();
@@ -19,24 +21,19 @@ function LocationsDetails() {
             getAccessTokenSilently,
             loginWithRedirect
         );
-
         if (locations && locations.length > 0) {
             console.log(locations);
             setLocations(locations);
         }
     };
 
-
     useEffect(() => {
-
         async function getLocations() {
             let locations = await request(
                 `${process.env.REACT_APP_SERVER_URL}${endpoints.locations}`,
                 getAccessTokenSilently,
                 loginWithRedirect
             );
-
-
             if (locations && locations.length > 0) {
                 console.log(locations);
                 setLocations(locations);
@@ -45,18 +42,6 @@ function LocationsDetails() {
 
         getLocations();
     }, []);
-
-
-    function addLocation(location) {
-        setLocations((prevLocations) => [location, ...prevLocations]);
-    }
-
-
-    let {
-        loginWithRedirect,
-        getAccessTokenSilently,
-    } = useAuth0();
-
 
     return (
         <div className="LocationsDetails">

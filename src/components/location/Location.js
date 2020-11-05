@@ -8,14 +8,10 @@ import {Link} from "react-router-dom";
 
 export default function Location(props) {
      const { ...locationsData } = props;
-
-
     let {
         loginWithRedirect,
         getAccessTokenSilently,
     } = useAuth0();
-
-
 
     const handleDelete = async locationId => {
 
@@ -25,10 +21,7 @@ export default function Location(props) {
             loginWithRedirect,
             "DELETE"
         )
-
-
     }
-
 
     return (
         <div className="location">
