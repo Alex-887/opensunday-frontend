@@ -5,6 +5,7 @@ import endpoints from "../endpoints.json";
 import {useAuth0} from "@auth0/auth0-react";
 import {BrowserRouter, Link, Route, Switch} from "react-router-dom";
 import Preference from "./Preference";
+import ListGroup from "react-bootstrap/ListGroup";
 
 
 function Preferences() {
@@ -14,6 +15,7 @@ function Preferences() {
 
     let handleLocationsClick = async (e) => {
         e.preventDefault();
+
         async function getLocations() {
             let locations = await request(
                 `${process.env.REACT_APP_SERVER_URL}${endpoints.user}`,
@@ -60,17 +62,17 @@ function Preferences() {
                         render={() => (
                             <>
                                 {handleLocationsClick}
-                                <ul className="Locations-List">
+                                <ListGroup className="list-group">
                                     {locations.map((location) => (
-                                        <li key={location.id}>
+                                        <ListGroup.Item key={location.id} className="list-group-item">
                                             <Link
-                                                className="App-link"
+
                                                 to={`/Preferences/location/${location.id}`}>
                                                 {location.name}
                                             </Link>
-                                        </li>
+                                        </ListGroup.Item>
                                     ))}
-                                </ul>
+                                </ListGroup>
                             </>
                         )}
                     />
