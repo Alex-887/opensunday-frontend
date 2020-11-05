@@ -4,6 +4,7 @@ import request from "../utils/request";
 import { useAuth0 } from "@auth0/auth0-react";
 import endpoints from "../endpoints.json";
 import { Link } from "react-router-dom";
+import SocialMediaButtons from "../components/button/SharingButtons";
 
 export default function LocationDetails({ match }) {
   let locationID = +match.params.id;
@@ -27,12 +28,14 @@ export default function LocationDetails({ match }) {
     getLocation();
   }, [locationID, getAccessTokenSilently, loginWithRedirect]);
 
-  return (
-      <div>
+  return ( <div>
+      <Link className="App-link" to="/LocationsDetails/#">
+        Back
+      </Link>
+
         {location ? <Location {...location} /> : <p>Loading details...</p>}
-        <Link className="App-link" to="/LocationsDetails/#">
-          Back
-        </Link>
+        <SocialMediaButtons url="https://grp11.p645.hevs.ch/"></SocialMediaButtons>
+
       </div>
   );
 }

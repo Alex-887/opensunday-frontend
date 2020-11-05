@@ -52,7 +52,7 @@ function LocationsDetails() {
         <div className="LocationsDetails">
             <h1>Locations available</h1>
 
-            <br/>
+
             <BrowserRouter>
             <Switch>
 

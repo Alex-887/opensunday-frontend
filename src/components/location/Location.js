@@ -5,6 +5,7 @@ import endpoints from "../../endpoints.json";
 import {useAuth0} from "@auth0/auth0-react";
 import {Link} from "react-router-dom";
 import Editable from "../Editable/EditableTemplate";
+import SocialMediaButtons from "../button/SharingButtons";
 
 export default function Location(props) {
 
@@ -73,8 +74,6 @@ export default function Location(props) {
 
     return (
         <div className="location">
-
-
             <table className="TableLocation">
                 <tr>
                     <td>Location name :</td>
@@ -290,6 +289,7 @@ export default function Location(props) {
 
 
             </table>
+
 
             <Link to="/LocationsDetails">
                 <button type="submit" onClick={() => handleEdit(locations.id)}>Edit</button>

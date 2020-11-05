@@ -12,6 +12,7 @@ import endpoints from "./endpoints.json";
 import Alert from "react-bootstrap/Alert";
 import Button from "@material-ui/core/Button";
 import * as BiIcons from "react-icons/bi";
+import SocialMediaButtons from "./components/button/SharingButtons";
 
 function App() {
 
